@@ -1,4 +1,4 @@
-fetch('http://localhost:3000/api/products/${url}')
+fetch('http://localhost:3000/api/products/${_id}')
 .then(function(res){
     if(res.ok){
         return res.json();
