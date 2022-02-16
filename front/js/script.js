@@ -9,7 +9,7 @@ fetch('http://localhost:3000/api/products')
 
         let items = document.getElementById('items');
         a = document.createElement('a');
-            a.href="./product.html?id=$";
+            a.href="./product.html"+"?id="+products._id;
         article = document.createElement('article');
         img = document.createElement('img');
         img.classList.add("productImage")
