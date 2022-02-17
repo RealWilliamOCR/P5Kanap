@@ -1,23 +1,16 @@
-    fetch('http://localhost:3000/api/products/a.href="./product.html"+"?id="+products._id;')
+    const url = 'http://localhost:3000/api/products/a.href="./product.html"+"?id="+products._id;'
+    fetch (url)
     .then(function(res){
         if(res.ok){
             return res.json();
         }
         })
             let items = document.getElementsByClassName('item__img');
-            img.classList.add("productImage")
-                img.src = ("datas.imageUrl");
-                img.alt = ("Photographie d'un canapé");
-                img.name = products.name;
-            /*let h1 = document.getElementById('title');
-                h1.classList.add("Titre de l'image");
-                h1.innerHTML = (products.name);*/
-            /*p.classList.add("productDescription");
-                p.innerHTML = products.description;
-                p.price = products.price;
-                p.colors = products.colors;*/
-                
-        items.appendChild(img);
+            		let img = document.createElement('img');
+                       	img.classList.add("productImage")
+                       	items.appendChild(img);
+                            img.src = ("datas.imageUrl");
+                            img.alt = ("Photographie d'un canapé");
 
 /*function produitComplet() {
     fetch("https://localhost:3000/api/products/")
