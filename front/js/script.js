@@ -12,7 +12,7 @@ fetch('http://localhost:3000/api/products')
             a.href="./product.html"+"?id="+products._id;
         article = document.createElement('article');
         img = document.createElement('img');
-        img.classList.add("productImage")
+        img.classList.add("productImage");
             img.src = products.imageUrl;
             img.alt = products.altTxt;
         h3 = document.createElement('h3');
