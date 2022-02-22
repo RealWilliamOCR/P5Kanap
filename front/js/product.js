@@ -7,18 +7,21 @@ fetch('http://localhost:3000/api/products?id=107fb5b75607497b96722bda5b504926')
     .then(function (datas){
         datas.forEach(products => {
 
-        let items = document.getElementById('title');
+        var items = document.getElementById('title');
             items.innerHTML = products.name;
 
-        let price = document.getElementById('price');
+        var price = document.getElementById('price');
             price.innerHTML = products.price;
 
-        let description = document.getElementById('description');
+        var description = document.getElementById('description');
             description.innerHTML = products.description;
 
-        let img = document.getElementsByClassName('item__img');
+        var img = document.getElementsByClassName('item__img');
             img.classList.add("productImage");
-            img.src = ("datas.imageUrl");
-            img.alt = ("Photographie d'un canapé");
+            img.src = products.imageUrl;
+            img.alt = products.altTxt;
+
+        var colors = document.getElementById('colors');
+            colors.innerHTML = products.colors;
     });
 });

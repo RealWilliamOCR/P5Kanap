@@ -7,7 +7,7 @@ fetch('http://localhost:3000/api/products')
     .then(function (datas){
         datas.forEach(products => {
 
-        let items = document.getElementById('items');
+        var items = document.getElementById('items');
         a = document.createElement('a');
             a.href="./product.html"+"?id="+products._id;
         article = document.createElement('article');
