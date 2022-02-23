@@ -18,12 +18,13 @@ fetch(url)
         let description = document.getElementById('description');
             description.innerHTML = products.description;
 
-        let item__img = document.getElementsByClassName('item__img');
-
+        let item = document.getElementById('imageId');
         let img = document.createElement('img');
-            img.src = products.imageUrl;
-            img.alt = products.altTxt;
-            img.appendChild(item__img);
+                img.classList.add("productImage");
+                    img.src = products.imageUrl;
+                    img.alt = products.altTxt;
+        item.appendChild(img);
+
 
         let option = document.createElement('option');
             option.value = products.colors;
