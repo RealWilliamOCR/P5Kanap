@@ -1,7 +1,7 @@
 let params = new URLSearchParams(window.location.search);
-let id = params.get('_id');
+const id = params.get("id");
 /*const getId = parametre.get('id');*/
-const url = 'http://localhost:3000/api/products/'+params;
+const url = 'http://localhost:3000/api/products?/'+params;
 fetch(url)
 /*fetch("http://localhost:3000/api/products")*/
 .then(function(res){
