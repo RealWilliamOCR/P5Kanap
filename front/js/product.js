@@ -1,4 +1,9 @@
-fetch('http://localhost:3000/api/products?id=107fb5b75607497b96722bda5b504926')
+let params = new URLSearchParams(window.location.search);
+let id = params.get('_id');
+/*const getId = parametre.get('id');*/
+const url = 'http://localhost:3000/api/products/'+params;
+fetch(url)
+/*fetch("http://localhost:3000/api/products")*/
 .then(function(res){
     if(res.ok){
         return res.json();
@@ -7,21 +12,23 @@ fetch('http://localhost:3000/api/products?id=107fb5b75607497b96722bda5b504926')
     .then(function (datas){
         datas.forEach(products => {
 
-        var items = document.getElementById('title');
+        let items = document.getElementById('title');
             items.innerHTML = products.name;
 
-        var price = document.getElementById('price');
+        let price = document.getElementById('price');
             price.innerHTML = products.price;
 
-        var description = document.getElementById('description');
+        let description = document.getElementById('description');
             description.innerHTML = products.description;
 
-        var img = document.getElementsByClassName('item__img');
-            img.classList.add("productImage");
+        let img = document.getElementById('img');
             img.src = products.imageUrl;
-            img.alt = products.altTxt;
 
-        var colors = document.getElementById('colors');
-            colors.innerHTML = products.colors;
+        let option = document.createElement('option');
+            option.value = products.colors;
+            option.innerHTML = products.colors;
+
+        let colors = document.getElementById('colors');
+        colors.appendChild(option);
     });
 });
