@@ -1,5 +1,5 @@
 let params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const id = params.get('id');
 /*const getId = parametre.get('id');*/
 const url = 'http://localhost:3000/api/products?/'+params;
 fetch(url)
