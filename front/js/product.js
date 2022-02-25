@@ -1,3 +1,7 @@
+/*
+Je récupère l'ID du produit et je l'inclus dans une constante appelée url où se trouve l'adresse locale des produits
+puis je lui rajoute la constante id qui contient l'ID du produit sélectionné.
+*/
 let params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const url = 'http://localhost:3000/api/products/'+id;
@@ -7,6 +11,13 @@ fetch(url)
             return res.json();
         }
     })
+
+/*
+Je créé une fonction que j'appelle products et je créé des variables (let) que je nomme de la même manière qu'ils sont nommés
+dans la page product.html. Ici j'utilise la propriété innerHTML pour récupérer une valeur se trouvant dans le fichier html concerné.
+Pour les autres, je vais chercher les informations dans le Product.js comme pour la source de l'image par exemple.
+*/
+
     .then(function (products){
 
         let items = document.getElementById('title');
@@ -25,11 +36,16 @@ fetch(url)
                     img.alt = products.altTxt;
         item.appendChild(img);
 
-
         let option = document.createElement('option');
             option.value = products.colors;
             option.innerHTML = products.colors;
 
         let colors = document.getElementById('colors');
         colors.appendChild(option);
+
+        /*let option = document.createElement('option');
+            option.value = products.colors;
+
+        let colors = document.getElementById('colors');
+            option.appendChild(colors);*/
 });
