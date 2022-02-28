@@ -35,17 +35,38 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
                     img.src = products.imageUrl;
                     img.alt = products.altTxt;
         item.appendChild(img);
+})
 
-        let option = document.createElement('option');
-            option.value = products.colors;
-            option.innerHTML = products.colors;
+/*
+Pour ce test ci-dessous, j'ai essayé de suivre l'instruction que tu m'as proposé par e-mail,
+celui-ci me renvoie : Uncaught (in promise) ReferenceError: products is not defined
+*/
 
-        let colors = document.getElementById('colors');
-        colors.appendChild(option);
+    .then(function (productcolor){
+            products.forEach(productcolor => {
 
-        /*let option = document.createElement('option');
-            option.value = products.colors;
+            let option = document.createElement('option');
+                option.innerHTML = productcolor.colors;
 
-        let colors = document.getElementById('colors');
-            option.appendChild(colors);*/
+            let colors = document.getElementById('colors');
+                colors.appendChild(option);
+    });
+
+/*
+Pour ce test ci-dessous, je me suis inspiré de ce que j'avais fait dans script.js à savoir :
+.then(function (datas){
+    datas.forEach(products => {
+
+Celui-ci me renvoie : Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'forEach')
+*/
+
+    /*.then(function (products){
+                products.forEach(products => {
+
+                let option = document.createElement('option');
+                    option.innerHTML = products.colors;
+
+                let colors = document.getElementById('colors');
+                    colors.appendChild(option);
+        });*/
 });
