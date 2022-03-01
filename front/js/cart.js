@@ -1,17 +1,8 @@
-localStorage.setItem("ID", "product-ID");
-localStorage.setItem("couleurs", "product-color");
-localStorage.setItem("image", "cart__item__img");
-localStorage.setItem("description", "cart__item__description");
-localStorage.setItem("nom", "productName");
-
-let params = new URLSearchParams(window.location.search);
-const id = params.get('id');
-const url = 'http://localhost:3000/api/products/'+id;
-fetch(url)
-    .then(function(res){
-        if(res.ok){
-            return res.json();
-        }
+fetch('http://localhost:3000/api/products')
+.then(function(res){
+    if(res.ok){
+        return res.json();
+    }
     })
 
     .then(function (datas){

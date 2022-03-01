@@ -44,4 +44,4 @@ que a est l'enfant de la variable items.
         article.appendChild(h3);
         article.appendChild(p);
     });
-});
+}); 

@@ -18,7 +18,7 @@ dans la page product.html. Ici j'utilise la propriété innerHTML pour récupér
 Pour les autres, je vais chercher les informations dans le Product.js comme pour la source de l'image par exemple.
 */
 
-    .then(function (products){
+.then(function (products){
 
         let items = document.getElementById('title');
             items.innerHTML = products.name;
@@ -35,22 +35,45 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
                     img.src = products.imageUrl;
                     img.alt = products.altTxt;
         item.appendChild(img);
+
+        products.lenses.forEach(test => {
+            console.log(test);
+            let option = document.createElement('option');
+                option.innerHTML = 'coucou';
+
+            let colors = document.getElementById('colors');
+        })
+        colors.appendChild(option);
 })
+
+function testlocal() {
+    let nom = document.getElementById('title').innerHTML;
+    localStorage.setItem("Nom", nom);
+
+}
+
+/*localStorage.setItem("couleurs", "product-color");
+localStorage.setItem("image", "cart__item__img");
+localStorage.setItem("description", "cart__item__description");
+localStorage.setItem("nom", "productName");*/
 
 /*
 Pour ce test ci-dessous, j'ai essayé de suivre l'instruction que tu m'as proposé par e-mail,
 celui-ci me renvoie : Uncaught (in promise) ReferenceError: products is not defined
 */
 
-    .then(function (productcolor){
-            products.forEach(productcolor => {
+/*    .then(function (datas){
+            datas.forEach(products => {
 
             let option = document.createElement('option');
-                option.innerHTML = productcolor.colors;
+                option.innerHTML = 'coucou';
 
             let colors = document.getElementById('colors');
                 colors.appendChild(option);
     });
+});*/
+
+
 
 /*
 Pour ce test ci-dessous, je me suis inspiré de ce que j'avais fait dans script.js à savoir :
@@ -69,4 +92,3 @@ Celui-ci me renvoie : Uncaught (in promise) TypeError: Cannot read properties of
                 let colors = document.getElementById('colors');
                     colors.appendChild(option);
         });*/
-});
