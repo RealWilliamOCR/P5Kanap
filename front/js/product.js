@@ -50,12 +50,23 @@ function testlocal() {
     let nom = document.getElementById('title').innerHTML;
     localStorage.setItem("Nom", nom);
 
+    let prix = document.getElementById('price').innerHTML;
+    localStorage.setItem("Prix", prix);
+
+    let image = document.getElementById('imageId').innerHTML;
+    localStorage.setItem("Image", image);
+
+    let description = document.getElementById('description').innerHTML;
+    localStorage.setItem("Description", description);
+
+    let quantite = document.getElementById('quantity').innerHTML;
+    localStorage.setItem("Quantité", quantite);
 }
 
-/*localStorage.setItem("couleurs", "product-color");
-localStorage.setItem("image", "cart__item__img");
-localStorage.setItem("description", "cart__item__description");
-localStorage.setItem("nom", "productName");*/
+/*localStorage.setItem("Couleurs", "product-color");
+localStorage.setItem("Image", "image");
+localStorage.setItem("Description", "description");
+localStorage.setItem("Nom", "nom");*/
 
 /*
 Pour ce test ci-dessous, j'ai essayé de suivre l'instruction que tu m'as proposé par e-mail,
