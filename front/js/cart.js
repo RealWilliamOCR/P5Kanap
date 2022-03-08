@@ -5,7 +5,12 @@ fetch('http://localhost:3000/api/products')
     }
     })
 
-    .then(function (datas){
+    localStorage.getItem("Couleurs", "product-color");
+    localStorage.getItem("Image", "image");
+    localStorage.getItem("Description", "description");
+    localStorage.getItem("Nom", "nom");
+
+    /*.then(function (datas){
         datas.forEach(products => {
 
         let article = document.getElementsByClassName("cart__item");
@@ -36,4 +41,4 @@ fetch('http://localhost:3000/api/products')
         article.appendChild(h2);
         article.appendChild(p);
         });
-    });
+    });*/

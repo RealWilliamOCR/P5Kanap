@@ -36,37 +36,26 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
                     img.alt = products.altTxt;
         item.appendChild(img);
 
-        products.lenses.forEach(test => {
-            console.log(test);
-            let option = document.createElement('option');
-                option.innerHTML = 'coucou';
+        
+        let colorSelector = document.getElementById('colors');
 
-            let colors = document.getElementById('colors');
-        })
-        colors.appendChild(option);
+        products.colors.forEach(color => {
+            const colorChoice = document.createElement('option')
+            colorChoice.value = color
+            colorChoice.innerHTML = color
+            colorSelector.appendChild(colorChoice)
+          })
 })
 
-function testlocal() {
-    let nom = document.getElementById('title').innerHTML;
-    localStorage.setItem("Nom", nom);
+let addToCart = document.getElementById("addToCart");
 
-    let prix = document.getElementById('price').innerHTML;
-    localStorage.setItem("Prix", prix);
-
-    let image = document.getElementById('imageId').innerHTML;
-    localStorage.setItem("Image", image);
-
-    let description = document.getElementById('description').innerHTML;
-    localStorage.setItem("Description", description);
-
-    let quantite = document.getElementById('quantity').innerHTML;
-    localStorage.setItem("Quantité", quantite);
-}
-
-/*localStorage.setItem("Couleurs", "product-color");
-localStorage.setItem("Image", "image");
-localStorage.setItem("Description", "description");
-localStorage.setItem("Nom", "nom");*/
+addToCart.addEventListener("click", function (){
+    localStorage.setItem("Couleurs", document.querySelector("colors"));
+    localStorage.setItem("Image", document.querySelector("productImage"));
+    localStorage.setItem("Description", document.querySelector("description"));
+    localStorage.setItem("Nom", document.querySelector("title"));
+    localStorage.setItem("Prix", document.querySelector("price"));
+})
 
 /*
 Pour ce test ci-dessous, j'ai essayé de suivre l'instruction que tu m'as proposé par e-mail,
