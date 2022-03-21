@@ -5,10 +5,38 @@ fetch('http://localhost:3000/api/products')
     }
     })
 
-    localStorage.getItem("Couleurs", "product-color");
+    /*localStorage.getItem("Couleurs", "product-color");
     localStorage.getItem("Image", "image");
-    localStorage.getItem("Description", "description");
-    localStorage.getItem("Nom", "nom");
+    localStorage.getItem("Description", "description");*/
+
+    /*.then(function (products){*/
+
+       /* function test() {*/
+            let section = document.getElementById("cart__items");
+
+            let article = document.createElement("article");
+            article.classList.add("cart__item");
+            
+            let itemImg = document.createElement("div");
+            itemImg.classList.add("cart__item__img");
+
+            let image = document.createElement("img");
+            image.src = localStorage.getItem("Image");
+
+            let h2 = document.createElement("h2");
+            h2.classList.add("productName");
+            h2.innerHTML = localStorage.getItem("Nom");
+
+            let desc = document.createElement("p");
+
+            section.appendChild(article);
+            article.appendChild(itemImg);
+            itemImg.appendChild(image);
+            article.appendChild(h2);
+    /*}*/
+    /*});*/
+
+    /* BIEN PENSER A RAJOUTER LE ALT */
 
     /*.then(function (datas){
         datas.forEach(products => {
