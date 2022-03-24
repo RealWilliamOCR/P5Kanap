@@ -75,24 +75,3 @@ fetch('http://localhost:3000/api/products')
 
                 section.remove("itemcart__item__content__settings__delete");
             });
-
-            function getTotals(){
-
-                let articleQte = document.getElementsByClassName("itemQuantity");
-                let articleQteLength = articleQte.length;
-                quantityTotal = 0;
-                for (let i = 0; i < articleQteLength; ++i) {
-
-                    quantityTotal += articleQte[i].valueAsNumber;
-                }
-                let productCartTotalQuantity = document.getElementById("totalQuantity");
-                productCartTotalQuantity.innerText = quantityTotal;
-
-                totalPrice = 0;
-                for (let i= 0; i < articleQteLength; ++i) {
-                    totalPrice += articleQte[i].valueAsNumber * produitLocalStorage[i].price;
-                }
-                let productCartTotalPrice = document.getElementById("totalPrice");
-                productCartTotalPrice.innerText = totalPrice;
-            }
-            getTotals();
