@@ -52,7 +52,7 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
         localStorage.setItem("Couleurs", document.getElementById("colors").value);
         localStorage.setItem("Quantite", document.getElementById("quantity").value);
         localStorage.setItem("Image", products.imageUrl);
-        localStorage.setItem("Description", document.getElementById("description").innerHTML);
+        localStorage.setItem("ImageAlt", products.altTxt);
         localStorage.setItem("Nom", document.getElementById("title").innerHTML);
         localStorage.setItem("Prix", products.price);
     })
