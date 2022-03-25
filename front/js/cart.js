@@ -4,9 +4,17 @@ fetch('http://localhost:3000/api/products')
         return res.json();
     }
     })
-    
+
        /* function test() {*/
-            let section = document.getElementById("cart__items");
+
+        /*for (let k = 0; k < localStorage.length; k++) {
+            const nom = localStorage.key(i);
+            var data = JSON.parse(localStorage.getItem("Nom"));*/
+
+        .then (function (listeArticle){
+            listeArticle.forEach(products => {
+
+                let section = document.getElementById("cart__items");
 
             let article = document.createElement("article");
             article.classList.add("cart__item");
@@ -74,4 +82,7 @@ fetch('http://localhost:3000/api/products')
                 localStorage.removeItem("Prix");
 
                 section.remove("itemcart__item__content__settings__delete");
+
+                });
             });
+        });
