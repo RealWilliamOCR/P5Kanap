@@ -11,10 +11,7 @@ fetch('http://localhost:3000/api/products')
             const nom = localStorage.key(i);
             var data = JSON.parse(localStorage.getItem("Nom"));*/
 
-        .then (function (listeArticle){
-            listeArticle.forEach(products => {
-
-                let section = document.getElementById("cart__items");
+            let section = document.getElementById("cart__items");
 
             let article = document.createElement("article");
             article.classList.add("cart__item");
@@ -82,7 +79,53 @@ fetch('http://localhost:3000/api/products')
                 localStorage.removeItem("Prix");
 
                 section.remove("itemcart__item__content__settings__delete");
-
                 });
-            });
-        });
+
+                let prenomError = document.getElementById("firstNameErrorMsg"); 
+                let messagePrenomError = 'Erreur de saisie du prénom';
+
+                let prenom = document.getElementById("firstName");
+
+                let nomError = document.getElementById("lastName");
+                let messageNomError = 'Erreur de saisie du nom';
+
+                let nom = document.getElementById("lasrName");
+
+                let adressError = document.getElementById("adress");
+                let messageAdresseError = 'L adresse est invalide';
+
+                let adresse = document.getElementById("adress");
+
+                let cityError = document.getElementById("city");
+                let messageVilleError = 'Cette ville est inconnu';
+
+                let ville = document.getElementById("city");
+
+                let emailError = document.getElementById("email");
+                let messageMailError = 'Cette adresse mail est invalide';
+
+                let email = document.getElementById("email");
+
+                function test(){
+                    if (prenom === 1){
+                        prenomError.innerHTML = messagePrenomError;
+                    }
+
+                    if (nom === 2){
+                        nomError.innerHTML = messageNomError;
+                    }
+
+                    if (adresse === "rue du test"){
+                        adressError.innerHTML = messageAdresseError;
+                    }
+
+                    if (ville === "test ville"){
+                        cityError.innerHTML = messageVilleError;
+                    }
+
+                    if (email === "test.test@test.com"){
+                        emailError.innerHTML = messageMailError;
+                    }
+                }
+
+                /*/^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;*/
