@@ -5,12 +5,6 @@ fetch('http://localhost:3000/api/products')
     }
     })
 
-       /* function test() {*/
-
-        /*for (let k = 0; k < localStorage.length; k++) {
-            const nom = localStorage.key(i);
-            var data = JSON.parse(localStorage.getItem("Nom"));*/
-
             let section = document.getElementById("cart__items");
 
             let article = document.createElement("article");
@@ -81,51 +75,61 @@ fetch('http://localhost:3000/api/products')
                 section.remove("itemcart__item__content__settings__delete");
                 });
 
-                let prenomError = document.getElementById("firstNameErrorMsg"); 
-                let messagePrenomError = 'Erreur de saisie du prénom';
-
-                let prenom = document.getElementById("firstName");
-
-                let nomError = document.getElementById("lastName");
-                let messageNomError = 'Erreur de saisie du nom';
-
-                let nom = document.getElementById("lasrName");
-
-                let adressError = document.getElementById("adress");
-                let messageAdresseError = 'L adresse est invalide';
-
-                let adresse = document.getElementById("adress");
-
-                let cityError = document.getElementById("city");
-                let messageVilleError = 'Cette ville est inconnu';
-
-                let ville = document.getElementById("city");
-
-                let emailError = document.getElementById("email");
-                let messageMailError = 'Cette adresse mail est invalide';
-
-                let email = document.getElementById("email");
-
                 function test(){
-                    if (prenom === 1){
-                        prenomError.innerHTML = messagePrenomError;
-                    }
 
-                    if (nom === 2){
-                        nomError.innerHTML = messageNomError;
-                    }
+                    let prenomError = document.getElementById("firstNameErrorMsg"); 
+                    let messagePrenomError = 'Le prénom est invalide';
+                    let prenom = document.getElementById("firstName").value;
+        
+                        if (prenom === "William") {
+                            prenomError.innerHTML = "";
+                        }
+                        else{
+                            prenomError.innerHTML = messagePrenomError;
+                        }
 
-                    if (adresse === "rue du test"){
-                        adressError.innerHTML = messageAdresseError;
-                    }
+                    let nomError = document.getElementById("lastNameErrorMsg");
+                    let messageNomError = 'Le nom de famille est invalide';
+                    let nom = document.getElementById("lastName").value;
 
-                    if (ville === "test ville"){
-                        cityError.innerHTML = messageVilleError;
-                    }
+                        if (nom === "RANC") {
+                            nomError.innerHTML = "";
+                        }
+                        else{
+                            nomError.innerHTML = messageNomError;
+                        }
 
-                    if (email === "test.test@test.com"){
-                        emailError.innerHTML = messageMailError;
-                    }
-                }
+                    let adressError = document.getElementById("addressErrorMsg");
+                    let messageAdresseError = 'L‘adresse saisie est invalide';
+                    let adresse = document.getElementById("address").value;
+
+                        if (adresse === "Chemin des Hermières") {
+                            adressError.innerHTML = "";
+                        }
+                        else{
+                            adressError.innerHTML = messageAdresseError;
+                        }
+
+                    let villeError = document.getElementById("cityErrorMsg");
+                    let messageVilleError = 'La ville indiquée est invalide';
+                    let ville = document.getElementById("city").value;
+
+                        if (ville === "Francheville") {
+                            messageVilleError.innerHTML = "";
+                        }
+                        else{
+                            villeError.innerHTML = messageVilleError;
+                        }
+                    
+                    let emailError = document.getElementById("emailErrorMsg");
+                    let messageEmailError = 'L‘email indiqué est invalide';
+                    let email = document.getElementById("email").value;
+
+                        if (email === "Chemin des Hermières") {
+                            emailError.innerHTML = "";
+                        }
+                        else{
+                            emailError.innerHTML = messageEmailError;
+                        }}
 
                 /*/^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;*/
