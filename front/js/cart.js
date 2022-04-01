@@ -81,7 +81,7 @@ fetch('http://localhost:3000/api/products')
                     let messagePrenomError = 'Le prénom est invalide';
                     let prenom = document.getElementById("firstName").value;
         
-                        if (prenom === "William") {
+                        if (prenom === "testPrénom") {
                             prenomError.innerHTML = "";
                         }
                         else{
@@ -92,7 +92,7 @@ fetch('http://localhost:3000/api/products')
                     let messageNomError = 'Le nom de famille est invalide';
                     let nom = document.getElementById("lastName").value;
 
-                        if (nom === "RANC") {
+                        if (nom === "testNom") {
                             nomError.innerHTML = "";
                         }
                         else{
@@ -103,7 +103,7 @@ fetch('http://localhost:3000/api/products')
                     let messageAdresseError = 'L‘adresse saisie est invalide';
                     let adresse = document.getElementById("address").value;
 
-                        if (adresse === "Chemin des Hermières") {
+                        if (adresse === "testAdresse") {
                             adressError.innerHTML = "";
                         }
                         else{
@@ -114,7 +114,7 @@ fetch('http://localhost:3000/api/products')
                     let messageVilleError = 'La ville indiquée est invalide';
                     let ville = document.getElementById("city").value;
 
-                        if (ville === "Francheville") {
+                        if (ville === "testVille") {
                             messageVilleError.innerHTML = "";
                         }
                         else{
@@ -125,7 +125,7 @@ fetch('http://localhost:3000/api/products')
                     let messageEmailError = 'L‘email indiqué est invalide';
                     let email = document.getElementById("email").value;
 
-                        if (email === "Chemin des Hermières") {
+                        if (email === "testEmail") {
                             emailError.innerHTML = "";
                         }
                         else{
