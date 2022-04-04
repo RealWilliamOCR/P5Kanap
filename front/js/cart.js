@@ -126,7 +126,7 @@ fetch('http://localhost:3000/api/products')
                     let emailError = document.getElementById("emailErrorMsg");
                     let messageEmailError = 'L‘email indiqué est invalide';
                     let emailSaisi = document.getElementById("email").value;
-                    let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
 
                         if (emailSaisi.match(regexEmail)) {
                             emailError.innerHTML = "";
