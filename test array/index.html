@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <!--EN-TÊTE DE PAGE-->
+    <head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Test array</title>
+    </head>
+
+    <!--CORPS DE PAGE-->
+    <body>
+		<div id="container">
+			<!--TÊTE DE PAGE-->
+
+			<main>
+			<input type="submit" value="test" id="order" onclick="test();">
+			<input type="submit" value="test" id="order" onclick="test2();">
+			
+				<script>
+					
+					function test() {
+					
+						var arrayTest2 = ["Kanap", "Test du canapé", "1000 €", "5"];
+						var result = [];
+						console.log("longueur de result : " + result.length);
+						result[result.length] = arrayTest2;
+						console.log(result);
+						console.log("longueur de result : " + result.length);
+						localStorage.setItem("resultTest", result);
+					}
+					
+					function test2() {
+					
+						var arrayTest3 = ["Kanap2", "Test du canapé2", "10002 €", "52"];
+						//var result = {};
+						result[result.length] = arrayTest3;
+						
+						var stringResult;
+						for(let i = 0; i<result.length; i++){
+							console.log(result[i]);
+							stringResult = (stringResult)+(result[i]);
+							/*result[arrayTest2[i]] = arrayTest2[i];*/
+						}
+						console.log(result);
+						localStorage.setItem("resultTest", result);
+					}
+					
+				</script>
+			</main>
+		</div>
+	</body>
+</HTML>
