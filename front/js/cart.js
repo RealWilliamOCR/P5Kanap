@@ -79,20 +79,22 @@ fetch('http://localhost:3000/api/products')
 
                     let prenomError = document.getElementById("firstNameErrorMsg"); 
                     let messagePrenomError = 'Le prénom est invalide';
-                    let prenom = document.getElementById("firstName").value;
-        
-                        if (prenom === "testPrénom") {
+                    let prenomSaisi = document.getElementById("firstName").value;
+                    let regexPrenom = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
+
+                       if (prenomSaisi.match(regexPrenom)) {
                             prenomError.innerHTML = "";
-                        }
+                       }
+
                         else{
                             prenomError.innerHTML = messagePrenomError;
                         }
 
                     let nomError = document.getElementById("lastNameErrorMsg");
                     let messageNomError = 'Le nom de famille est invalide';
-                    let nom = document.getElementById("lastName").value;
+                    let nomSaisi = document.getElementById("lastName").value;
 
-                        if (nom === "testNom") {
+                        if (nomSaisi.match(regexPrenom)) {
                             nomError.innerHTML = "";
                         }
                         else{
@@ -101,9 +103,9 @@ fetch('http://localhost:3000/api/products')
 
                     let adressError = document.getElementById("addressErrorMsg");
                     let messageAdresseError = 'L‘adresse saisie est invalide';
-                    let adresse = document.getElementById("address").value;
+                    let adresseSaisi = document.getElementById("address").value;
 
-                        if (adresse === "testAdresse") {
+                        if (adresseSaisi.match(regexPrenom)) {
                             adressError.innerHTML = "";
                         }
                         else{
@@ -112,9 +114,9 @@ fetch('http://localhost:3000/api/products')
 
                     let villeError = document.getElementById("cityErrorMsg");
                     let messageVilleError = 'La ville indiquée est invalide';
-                    let ville = document.getElementById("city").value;
+                    let villeSaisi = document.getElementById("city").value;
 
-                        if (ville === "testVille") {
+                        if (villeSaisi.match(regexPrenom)) {
                             messageVilleError.innerHTML = "";
                         }
                         else{
@@ -123,13 +125,12 @@ fetch('http://localhost:3000/api/products')
                     
                     let emailError = document.getElementById("emailErrorMsg");
                     let messageEmailError = 'L‘email indiqué est invalide';
-                    let email = document.getElementById("email").value;
+                    let emailSaisi = document.getElementById("email").value;
+                    let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-                        if (email === "testEmail") {
+                        if (emailSaisi.match(regexEmail)) {
                             emailError.innerHTML = "";
                         }
                         else{
                             emailError.innerHTML = messageEmailError;
                         }}
-
-                /*/^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;*/
