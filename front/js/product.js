@@ -20,41 +20,94 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
 
 .then(function (products){
 
-        let items = document.getElementById('title');
-            items.innerHTML = products.name;
+    let items = document.getElementById('title');
+        items.innerHTML = products.name;
 
-        let price = document.getElementById('price');
-            price.innerHTML = products.price;
+    let price = document.getElementById('price');
+        price.innerHTML = products.price;
 
-        let description = document.getElementById('description');
-            description.innerHTML = products.description;
+    let description = document.getElementById('description');
+        description.innerHTML = products.description;
 
-        let item = document.getElementById('imageId');
-        let img = document.createElement('img');
-                img.classList.add("productImage");
-                    img.src = products.imageUrl;
-                    img.alt = products.altTxt;
-        item.appendChild(img);
+    let item = document.getElementById('imageId');
+    let img = document.createElement('img');
+            img.classList.add("productImage");
+                img.src = products.imageUrl;
+                img.alt = products.altTxt;
+    item.appendChild(img);
 
-        
-        let colorSelector = document.getElementById('colors');
+    let colorSelector = document.getElementById('colors');
 
-        products.colors.forEach(color => {
-            const colorChoice = document.createElement('option')
-            colorChoice.value = color
-            colorChoice.innerHTML = color
-            colorSelector.appendChild(colorChoice)
-          })
+    products.colors.forEach(color => {
+        const colorChoice = document.createElement('option')
+        colorChoice.value = color
+        colorChoice.innerHTML = color
+        colorSelector.appendChild(colorChoice)
+    })
 
-          let addToCart = document.getElementById("addToCart");
-
+    let addToCart = document.getElementById("addToCart");
     addToCart.addEventListener("click", function (){
-        localStorage.setItem("Couleurs", document.getElementById("colors").value);
+
+        var kanapInfos = [];
+        kanapInfos[0] = document.getElementById("colors").value;
+        kanapInfos[1] = document.getElementById("quantity").value;
+        kanapInfos[2] = products.imageUrl;
+        kanapInfos[3] = products.altTxt;
+        kanapInfos[4] = document.getElementById("title").innerHTML;
+        kanapInfos[5] = products.price;
+
+        let produitEnregistre = JSON.parse(localStorage.getItem("kanapInfos"));
+        console.log(produitEnregistre);
+
+        if(produitEnregistre){
+
+        }
+        else {
+        produitEnregistre = [];
+        produitEnregistre.push(kanapInfos);
+
+        console.log(produitEnregistre);
+        }
+
+        /*localStorage.setItem("Couleurs", document.getElementById("colors").value);
         localStorage.setItem("Quantite", document.getElementById("quantity").value);
         localStorage.setItem("Image", products.imageUrl);
         localStorage.setItem("ImageAlt", products.altTxt);
         localStorage.setItem("Nom", document.getElementById("title").innerHTML);
-        localStorage.setItem("Prix", products.price);
+        localStorage.setItem("Prix", products.price)*/
+
+        /*var registeredKanap = [];
+
+        if (localStorage.getItem("listeKanap") === null) {
+
+        }
+        else{
+            registeredKanap = localStorage.getItem("listeKanap");
+            console.log("cas non null");
+            console.log(registeredKanap);
+        }
+        console.log("canapé sélectionné : " + kanapInfos);
+        console.log("canapés enregistrés avant sélection : ");
+        console.log(registeredKanap);
+        console.log("nb canapés déjà sélectionnés : " + registeredKanap.length);
+        let nb = localStorage.getItem("témoinNumber");
+                    let str = localStorage.getItem("témoinString");
+                    console.log(nb);
+                    console.log(str);
+
+        registeredKanap[registeredKanap.length] = kanapInfos;
+        registeredKanap[registeredKanap.length] = kanapInfos;
+
+        console.log("taille chaine canapé sélectionné : " + kanapInfos.length);
+        console.log("canapés enregistrés après sélection : ");
+        console.log(registeredKanap);
+        console.log("nb canapés nouvellement sélectionnés : " + registeredKanap.length);
+        nb = localStorage.getItem("témoinNumber");
+                    str = localStorage.getItem("témoinString");
+                    console.log(nb);
+                    console.log(str);
+
+        localStorage.setItem("listeKanap", registeredKanap);*/
     })
 })
 

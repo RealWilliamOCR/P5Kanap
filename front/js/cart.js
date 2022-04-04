@@ -7,6 +7,14 @@ fetch('http://localhost:3000/api/products')
 
             let section = document.getElementById("cart__items");
 
+        //DEBUT BOUCLE
+
+        let registeredKanap = localStorage.getItem("listeKanap");
+        for(let i = 0; i<registeredKanap.length; i++){
+
+        let kanapInfos = registeredKanap[i];
+
+
             let article = document.createElement("article");
             article.classList.add("cart__item");
             
@@ -14,8 +22,8 @@ fetch('http://localhost:3000/api/products')
             itemImg.classList.add("cart__item__img");
 
             let image = document.createElement("img");
-            image.src = localStorage.getItem("Image");
-            image.alt = localStorage.getItem("ImageAlt");
+            image.src = kanapInfos[2];
+            image.alt = kanapInfos[3];
 
             let itemContent = document.createElement("div");
             itemContent.classList.add("cart__item__content");
@@ -25,13 +33,14 @@ fetch('http://localhost:3000/api/products')
 
             let h2 = document.createElement("h2");
             h2.classList.add("productName");
-            h2.innerHTML = localStorage.getItem("Nom");
+            h2.innerHTML = kanapInfos[4];
 
             let color = document.createElement("p");
-            color.innerHTML = localStorage.getItem("Couleurs");
+            //color.innerHTML = localStorage.getItem("Couleurs");
+            color.innerHTML = kanapInfos[0];
 
             let price = document.createElement("p");
-            price.innerHTML = localStorage.getItem("Prix")+(' €');
+            price.innerHTML = kanapInfos[5]+(' €');
 
             let itemSettings = document.createElement("div");
             itemSettings.classList.add("cart__item__content__settings");
@@ -40,7 +49,7 @@ fetch('http://localhost:3000/api/products')
             itemSetQuantity.classList.add("cart__item__content__settings__quantity");
 
             let nomQte = document.createElement("p");
-            nomQte.innerHTML = ('Qté : ')+localStorage.getItem("Quantite");
+            nomQte.innerHTML = ('Qté : ')+kanapInfos[1];
 
             let itemDelete = document.createElement("div");
             itemDelete.classList.add("cart__item__content__settings__delete");
@@ -73,7 +82,11 @@ fetch('http://localhost:3000/api/products')
                 localStorage.removeItem("Prix");
 
                 section.remove("itemcart__item__content__settings__delete");
-                });
+            });
+}
+            /*FIN DE BOUCLE*/
+            registeredKanap = null;
+            localStorage.setItem("listeKanap", registeredKanap);
 
                 function test(){
 
@@ -94,12 +107,12 @@ fetch('http://localhost:3000/api/products')
                     let messageNomError = 'Le nom de famille est invalide';
                     let nomSaisi = document.getElementById("lastName").value;
 
-                        if (nomSaisi.match(regexPrenom)) {
-                            nomError.innerHTML = "";
-                        }
-                        else{
-                            nomError.innerHTML = messageNomError;
-                        }
+                    if (nomSaisi.match(regexPrenom)) {
+                        nomError.innerHTML = "";
+                    }
+                    else{
+                         nomError.innerHTML = messageNomError;
+                    }
 
                     let adressError = document.getElementById("addressErrorMsg");
                     let messageAdresseError = 'L‘adresse saisie est invalide';
@@ -133,4 +146,5 @@ fetch('http://localhost:3000/api/products')
                         }
                         else{
                             emailError.innerHTML = messageEmailError;
-                        }}
+                        }
+                }
