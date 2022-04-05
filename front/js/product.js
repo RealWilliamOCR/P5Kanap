@@ -69,14 +69,14 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
         console.log(produitEnregistre);
         }
 
-        /*localStorage.setItem("Couleurs", document.getElementById("colors").value);
+        localStorage.setItem("Couleurs", document.getElementById("colors").value);
         localStorage.setItem("Quantite", document.getElementById("quantity").value);
         localStorage.setItem("Image", products.imageUrl);
         localStorage.setItem("ImageAlt", products.altTxt);
         localStorage.setItem("Nom", document.getElementById("title").innerHTML);
-        localStorage.setItem("Prix", products.price)*/
+        localStorage.setItem("Prix", products.price);
 
-        /*var registeredKanap = [];
+        let registeredKanap = [];
 
         if (localStorage.getItem("listeKanap") === null) {
 
@@ -87,64 +87,10 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
             console.log(registeredKanap);
         }
         console.log("canapé sélectionné : " + kanapInfos);
-        console.log("canapés enregistrés avant sélection : ");
-        console.log(registeredKanap);
-        console.log("nb canapés déjà sélectionnés : " + registeredKanap.length);
-        let nb = localStorage.getItem("témoinNumber");
-                    let str = localStorage.getItem("témoinString");
-                    console.log(nb);
-                    console.log(str);
 
         registeredKanap[registeredKanap.length] = kanapInfos;
-        registeredKanap[registeredKanap.length] = kanapInfos;
 
-        console.log("taille chaine canapé sélectionné : " + kanapInfos.length);
         console.log("canapés enregistrés après sélection : ");
         console.log(registeredKanap);
-        console.log("nb canapés nouvellement sélectionnés : " + registeredKanap.length);
-        nb = localStorage.getItem("témoinNumber");
-                    str = localStorage.getItem("témoinString");
-                    console.log(nb);
-                    console.log(str);
-
-        localStorage.setItem("listeKanap", registeredKanap);*/
     })
 })
-
-
-
-/*
-Pour ce test ci-dessous, j'ai essayé de suivre l'instruction que tu m'as proposé par e-mail,
-celui-ci me renvoie : Uncaught (in promise) ReferenceError: products is not defined
-*/
-
-/*    .then(function (datas){
-            datas.forEach(products => {
-
-            let option = document.createElement('option');
-                option.innerHTML = 'coucou';
-
-            let colors = document.getElementById('colors');
-                colors.appendChild(option);
-    });
-});*/
-
-
-
-/*
-Pour ce test ci-dessous, je me suis inspiré de ce que j'avais fait dans script.js à savoir :
-.then(function (datas){
-    datas.forEach(products => {
-
-Celui-ci me renvoie : Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'forEach')
-*/
-
-    /*.then(function (products){
-                products.forEach(products => {
-
-                let option = document.createElement('option');
-                    option.innerHTML = products.colors;
-
-                let colors = document.getElementById('colors');
-                    colors.appendChild(option);
-        });*/

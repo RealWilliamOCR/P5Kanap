@@ -85,8 +85,6 @@ fetch('http://localhost:3000/api/products')
             });
 }
             /*FIN DE BOUCLE*/
-            registeredKanap = null;
-            localStorage.setItem("listeKanap", registeredKanap);
 
                 function test(){
 
