@@ -18,7 +18,7 @@
 			
 				<script>
 					
-					function test() {
+					/*function test() {
 					
 						var arrayTest2 = ["Kanap", "Test du canapé", "1000 €", "5"];
 						var result = [];
@@ -27,24 +27,21 @@
 						console.log(result);
 						console.log("longueur de result : " + result.length);
 						localStorage.setItem("resultTest", result);
-					}
+					}*/
 					
 					function test2() {
-					
+
 						var arrayTest3 = ["Kanap2", "Test du canapé2", "10002 €", "52"];
-						//var result = {};
-						result[result.length] = arrayTest3;
+						var result = [];
+						result.push(arrayTest3);
 						
 						var stringResult;
 						for(let i = 0; i<result.length; i++){
-							console.log(result[i]);
-							stringResult = (stringResult)+(result[i]);
-							/*result[arrayTest2[i]] = arrayTest2[i];*/
+							stringResult = (stringResult);
+							result[arrayTest3[i]];
 						}
 						console.log(result);
-						localStorage.setItem("resultTest", result);
 					}
-					
 				</script>
 			</main>
 		</div>
