@@ -6,11 +6,11 @@ let params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const url = 'http://localhost:3000/api/products/'+id;
 fetch(url)
-    .then(function(res){
-        if(res.ok){
-            return res.json();
-        }
-    })
+.then(function(res){
+    if(res.ok){
+        return res.json();
+    }
+})
 
 /*
 Je créé une fonction que j'appelle products et je créé des variables (let) que je nomme de la même manière qu'ils sont nommés
@@ -46,51 +46,34 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
     })
 
     let addToCart = document.getElementById("addToCart");
+
     addToCart.addEventListener("click", function (){
 
-        var kanapInfos = [];
-        kanapInfos[0] = document.getElementById("colors").value;
-        kanapInfos[1] = document.getElementById("quantity").value;
-        kanapInfos[2] = products.imageUrl;
-        kanapInfos[3] = products.altTxt;
-        kanapInfos[4] = document.getElementById("title").innerHTML;
-        kanapInfos[5] = products.price;
-
-        let produitEnregistre = JSON.parse(localStorage.getItem("kanapInfos"));
-        console.log(produitEnregistre);
-
-        if(produitEnregistre){
-
-        }
-        else {
-        produitEnregistre = [];
-        produitEnregistre.push(kanapInfos);
-
-        console.log(produitEnregistre);
+        let kanapDetails = {
+            Couleur:document.getElementById("colors").value,
+            Quantite:document.getElementById("quantity").value,
+            Image:products.imageUrl,
+            ImageAlt:products.altTxt,
+            Nom:document.getElementById("title").innerHTML,
+            Prix:products.price
         }
 
-        localStorage.setItem("Couleurs", document.getElementById("colors").value);
+        let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
+            if (kanapInfos) {
+                kanapInfos.push(kanapDetails);
+                localStorage.setItem("Kanap",JSON.stringify(kanapInfos));
+            }
+            else {
+                kanapInfos = [];
+                kanapInfos.push(kanapDetails);
+                localStorage.setItem("Kanap",JSON.stringify(kanapInfos));
+            }
+
+        /*localStorage.setItem("Couleurs", document.getElementById("colors").value);
         localStorage.setItem("Quantite", document.getElementById("quantity").value);
         localStorage.setItem("Image", products.imageUrl);
         localStorage.setItem("ImageAlt", products.altTxt);
         localStorage.setItem("Nom", document.getElementById("title").innerHTML);
-        localStorage.setItem("Prix", products.price);
-
-        let registeredKanap = [];
-
-        if (localStorage.getItem("listeKanap") === null) {
-
-        }
-        else{
-            registeredKanap = localStorage.getItem("listeKanap");
-            console.log("cas non null");
-            console.log(registeredKanap);
-        }
-        console.log("canapé sélectionné : " + kanapInfos);
-
-        registeredKanap[registeredKanap.length] = kanapInfos;
-
-        console.log("canapés enregistrés après sélection : ");
-        console.log(registeredKanap);
+        localStorage.setItem("Prix", products.price);*/
     })
 })
