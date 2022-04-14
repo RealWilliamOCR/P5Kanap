@@ -75,7 +75,6 @@ let section = document.getElementById("cart__items");
         section.remove("itemcart__item__content__settings__delete");
         });
 
-
 /*let section = document.getElementById("cart__items");
 
 let article = document.createElement("article");
