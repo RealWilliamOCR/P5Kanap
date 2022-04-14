@@ -50,12 +50,12 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
     addToCart.addEventListener("click", function (){
 
         let kanapDetails = {
-            Couleur:document.getElementById("colors").value,
-            Quantite:document.getElementById("quantity").value,
-            Image:products.imageUrl,
-            ImageAlt:products.altTxt,
-            Nom:document.getElementById("title").innerHTML,
-            Prix:products.price
+            Couleurs:localStorage.setItem("Couleurs", document.getElementById("colors").value),
+            Quantite:localStorage.setItem("Quantite", document.getElementById("quantity").value),
+            Image:localStorage.setItem("Image", products.imageUrl),
+            ImageAlt:localStorage.setItem("ImageAlt", products.altTxt),
+            Nom:localStorage.setItem("Nom", document.getElementById("title").innerHTML),
+            Prix:localStorage.setItem("Prix", products.price)
         }
 
         let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
@@ -68,12 +68,5 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
                 kanapInfos.push(kanapDetails);
                 localStorage.setItem("Kanap",JSON.stringify(kanapInfos));
             }
-
-        /*localStorage.setItem("Couleurs", document.getElementById("colors").value);
-        localStorage.setItem("Quantite", document.getElementById("quantity").value);
-        localStorage.setItem("Image", products.imageUrl);
-        localStorage.setItem("ImageAlt", products.altTxt);
-        localStorage.setItem("Nom", document.getElementById("title").innerHTML);
-        localStorage.setItem("Prix", products.price);*/
     })
 })
