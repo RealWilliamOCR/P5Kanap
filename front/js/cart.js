@@ -14,8 +14,8 @@ let section = document.getElementById("cart__items");
     itemImg.classList.add("cart__item__img");
 
     let image = document.createElement("img");
-    image.src = localStorage.getItem("Image");
-    image.alt = localStorage.getItem("ImageAlt");
+    image.src = ("TestImage");
+    image.alt = ("TestImageAlt");
 
     let itemContent = document.createElement("div");
     itemContent.classList.add("cart__item__content");
@@ -25,13 +25,13 @@ let section = document.getElementById("cart__items");
 
     let h2 = document.createElement("h2");
     h2.classList.add("productName");
-    h2.innerHTML = localStorage.getItem("Nom");
+    h2.innerHTML = ("Test");
 
     let color = document.createElement("p");
-    color.innerHTML = localStorage.getItem("Couleurs");
+    color.innerHTML = ("TestCouleurs");
 
     let price = document.createElement("p");
-    price.innerHTML = localStorage.getItem("Prix")+(' €');
+    price.innerHTML = ("TestPrix")+(' €');
 
     let itemSettings = document.createElement("div");
     itemSettings.classList.add("cart__item__content__settings");
@@ -40,7 +40,7 @@ let section = document.getElementById("cart__items");
     itemSetQuantity.classList.add("cart__item__content__settings__quantity");
 
     let nomQte = document.createElement("p");
-    nomQte.innerHTML = ('Qté : ')+localStorage.getItem("Quantite");
+    nomQte.innerHTML = ('Qté : ')+("TestQuantite");
 
     let itemDelete = document.createElement("div");
     itemDelete.classList.add("cart__item__content__settings__delete");
