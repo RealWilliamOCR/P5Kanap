@@ -5,6 +5,9 @@ fetch('http://localhost:3000/api/products')
     }
 })
 
+var kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
+
+for (var produit in kanapInfos){
 let section = document.getElementById("cart__items");
 
     let article = document.createElement("article");
@@ -14,8 +17,8 @@ let section = document.getElementById("cart__items");
     itemImg.classList.add("cart__item__img");
 
     let image = document.createElement("img");
-    image.src = ("TestImage");
-    image.alt = ("TestImageAlt");
+    image.src = ("Test Image");
+    image.alt = ("Test Image Alt");
 
     let itemContent = document.createElement("div");
     itemContent.classList.add("cart__item__content");
@@ -25,13 +28,13 @@ let section = document.getElementById("cart__items");
 
     let h2 = document.createElement("h2");
     h2.classList.add("productName");
-    h2.innerHTML = ("Test");
+    h2.innerHTML = ("Test Nom");
 
     let color = document.createElement("p");
-    color.innerHTML = ("TestCouleurs");
+    color.innerHTML = ("Test Couleurs");
 
     let price = document.createElement("p");
-    price.innerHTML = ("TestPrix")+(' €');
+    price.innerHTML = ("Test Prix")+(' €');
 
     let itemSettings = document.createElement("div");
     itemSettings.classList.add("cart__item__content__settings");
@@ -40,7 +43,7 @@ let section = document.getElementById("cart__items");
     itemSetQuantity.classList.add("cart__item__content__settings__quantity");
 
     let nomQte = document.createElement("p");
-    nomQte.innerHTML = ('Qté : ')+("TestQuantite");
+    nomQte.innerHTML = ('Qté : ')+("Test Quantite");
 
     let itemDelete = document.createElement("div");
     itemDelete.classList.add("cart__item__content__settings__delete");
@@ -74,7 +77,7 @@ let section = document.getElementById("cart__items");
 
         section.remove("itemcart__item__content__settings__delete");
         });
-
+}
 /*let section = document.getElementById("cart__items");
 
 let article = document.createElement("article");
