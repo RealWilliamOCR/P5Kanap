@@ -50,6 +50,7 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
     addToCart.addEventListener("click", function (){
 
         let kanapDetails = {
+            Id: id,
             Couleurs:("Couleurs", document.getElementById("colors").value),
             Quantite:("Quantite", document.getElementById("quantity").value),
             Image:("Image", products.imageUrl),

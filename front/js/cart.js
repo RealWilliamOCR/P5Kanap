@@ -7,6 +7,7 @@ fetch('http://localhost:3000/api/products')
 
 var kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
 
+
 for (var produit in kanapInfos){
 let section = document.getElementById("cart__items");
 
@@ -43,7 +44,15 @@ let section = document.getElementById("cart__items");
     itemSetQuantity.classList.add("cart__item__content__settings__quantity");
 
     let nomQte = document.createElement("p");
-    nomQte.innerHTML = ('Qté : ')+kanapInfos[produit].Quantite;
+    nomQte.innerHTML = ('Qté : ');
+
+    let productQuantity = document.createElement("input");
+    productQuantity.value = kanapInfos[produit].Quantite;
+    productQuantity.className = "itemQuantity";
+    productQuantity.setAttribute("type", "number");
+    productQuantity.setAttribute("min", "1");
+    productQuantity.setAttribute("max", "100");
+    productQuantity.setAttribute("name", "itemQuantity");
 
     let itemDelete = document.createElement("div");
     itemDelete.classList.add("cart__item__content__settings__delete");
@@ -63,6 +72,7 @@ let section = document.getElementById("cart__items");
     article.appendChild(itemSettings);
     itemSettings.appendChild(itemSetQuantity);
     itemSetQuantity.appendChild(nomQte);
+    itemSetQuantity.appendChild(productQuantity);
     article.appendChild(itemDelete);
     itemDelete.appendChild(deleteAccept);
 
@@ -82,94 +92,93 @@ let section = document.getElementById("cart__items");
         })
     }
 
-    function getTotals(){
+        let quantiteTotal = [];
 
-        let quantiteDuKanap = document.getElementsByClassName('itemQuantity');
-        quantiteTotal = kanapInfos[produit].Quantite;
+        for (let y = 0; y < kanapInfos.length; ++y){
+        let quantiteDansPanier = parseInt(kanapInfos[y].Quantite);
 
-        for (let n = 0; n < length; ++w) {
-            quantiteTotal += elemsQtt[n];
-        }
-
-        let quantiteFinal = document.getElementById('totalQuantity');
-        quantiteFinal.innerHTML = quantiteTotal;
-
-        prixTotal = kanapInfos[produit].Prix;
-
-        for (var n = 0; n < length; ++n) {
-            prixTotal += (quantiteDuKanap[n] * kanapInfos[n].Prix);
-        }
-
-        let prixFinal = document.getElementById('totalPrice');
-        prixFinal.innerHTML = prixTotal;
+        quantiteTotal.push(quantiteDansPanier)
     }
 
-    getTotals();
+    const Reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const quantiteTotalTableau = quantiteTotal.reduce(Reducer);
+
+    let affichageQuantiteHTML = document.getElementById("totalQuantity");
+    affichageQuantiteHTML.innerHTML = quantiteTotalTableau;
+
+        let prixTotal = [];
+
+        for (let x = 0; x < kanapInfos.length; x++){
+        let prixDansPanier = kanapInfos[x].Prix;
+
+        prixTotal.push(prixDansPanier)
+    }
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const prixTotalTableau = prixTotal.reduce(reducer,0);
+
+    let affichagePrixHTML = document.getElementById("totalPrice");
+    affichagePrixHTML.innerHTML = prixTotalTableau;
+    }
 
     let commande = document.getElementById("order");
 
-    commande.addEventListener("click", function(){
+function test(){
 
-        let prenomError = document.getElementById("firstNameErrorMsg");
-        let messagePrenomError = 'Le prénom est invalide';
-        let prenom = document.getElementById("firstName").value;
-        let regexPrenom = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
+    let prenomError = document.getElementById("firstNameErrorMsg");
+    let messagePrenomError = 'Le prénom est invalide';
+    let prenom = document.getElementById("firstName").value;
+    let regexPrenom = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
 
-           if (prenom.match(regexPrenom)) {
-                prenomError.innerHTML = "";
-           }
-            else{
-                prenomError.innerHTML = messagePrenomError;
-            }
+       if (prenom.match(regexPrenom)) {
+            prenomError.innerHTML = "";
+       }
+        else{
+            prenomError.innerHTML = messagePrenomError;
+        }
 
-        let nomError = document.getElementById("lastNameErrorMsg");
-        let messageNomError = 'Le nom de famille est invalide';
-        let nom = document.getElementById("lastName").value;
+    let nomError = document.getElementById("lastNameErrorMsg");
+    let messageNomError = 'Le nom de famille est invalide';
+    let nom = document.getElementById("lastName").value;
 
-            if (nom.match(regexPrenom)) {
-                nomError.innerHTML = "";
-            }
-            else{
-                 nomError.innerHTML = messageNomError;
-            }
-
-        let adressError = document.getElementById("addressErrorMsg");
-        let messageAdresseError = 'L‘adresse saisie est invalide';
-        let adresse = document.getElementById("address").value;
-
-            if (adresse.match(regexPrenom)) {
-                adressError.innerHTML = "";
-            }
-            else{
-                adressError.innerHTML = messageAdresseError;
-            }
-
-        let villeError = document.getElementById("cityErrorMsg");
-        let messageVilleError = 'La ville indiquée est invalide';
-        let ville = document.getElementById("city").value;
-
-            if (ville.match(regexPrenom)) {
-                messageVilleError.innerHTML = "";
-            }
-            else{
-                villeError.innerHTML = messageVilleError;
-            }
-
-        let emailError = document.getElementById("emailErrorMsg");
-        let messageEmailError = 'L‘email indiqué est invalide';
-        let email = document.getElementById("email").value;
-        let regexEmail = /(?=^.{5,20}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
-
-        if (email.match(regexEmail)) {
-            emailError.innerHTML = "";
+        if (nom.match(regexPrenom)) {
+            nomError.innerHTML = "";
         }
         else{
-            emailError.innerHTML = messageEmailError;
+             nomError.innerHTML = messageNomError;
         }
-    })
-}
 
-function confirmation() {
-        alert("Votre commande a bien été enregistrée !");
-        window.location.href = "confirmation.html";
+    let adressError = document.getElementById("addressErrorMsg");
+    let messageAdresseError = 'L‘adresse saisie est invalide';
+    let adresse = document.getElementById("address").value;
+
+        if (adresse.match(regexPrenom)) {
+            adressError.innerHTML = "";
+        }
+        else{
+            adressError.innerHTML = messageAdresseError;
+        }
+
+    let villeError = document.getElementById("cityErrorMsg");
+    let messageVilleError = 'La ville indiquée est invalide';
+    let ville = document.getElementById("city").value;
+
+        if (ville.match(regexPrenom)) {
+            messageVilleError.innerHTML = "";
+        }
+        else{
+            villeError.innerHTML = messageVilleError;
+        }
+
+    let emailError = document.getElementById("emailErrorMsg");
+    let messageEmailError = 'L‘email indiqué est invalide';
+    let email = document.getElementById("email").value;
+    let regexEmail = /(?=^.{5,20}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
+
+    if (email.match(regexEmail)) {
+        emailError.innerHTML = "";
+    }
+    else{
+        emailError.innerHTML = messageEmailError;
+    }
 }
