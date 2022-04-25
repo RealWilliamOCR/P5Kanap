@@ -1,4 +1,8 @@
-fetch('http://localhost:3000/api/products')
+let params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const price = params.get('price');
+const url = 'http://localhost:3000/api/products/'+id+price;
+fetch(url)
 .then(function(res){
     if(res.ok){
         return res.json();
@@ -34,7 +38,7 @@ let section = document.getElementById("cart__items");
     color.innerHTML = kanapInfos[produit].Couleurs;
 
     let price = document.createElement("p");
-    price.innerHTML = kanapInfos[produit].Prix +(' €');
+    price.innerHTML = ("Le prix en") +(' €');
 
     let itemSettings = document.createElement("div");
     itemSettings.classList.add("cart__item__content__settings");
@@ -132,8 +136,8 @@ let section = document.getElementById("cart__items");
 
         let prixTotal = [];
 
-        for (let x = 0; x < kanapInfos.length; x++){
-        let prixDansPanier = parseInt(kanapInfos[x].Prix);
+        for (let x = 0; x < kanapInfos.length; ++x){
+        let prixDansPanier = parseInt(kanapInfos[x].price);
 
         prixTotal.push(prixDansPanier)
     }
