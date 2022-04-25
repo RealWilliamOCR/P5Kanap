@@ -7,7 +7,6 @@ fetch('http://localhost:3000/api/products')
 
 var kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
 
-
 for (var produit in kanapInfos){
 let section = document.getElementById("cart__items");
 
@@ -92,6 +91,31 @@ let section = document.getElementById("cart__items");
         })
     }
 
+    // Modification d'une quantité de produit
+    function changerQuantite() {
+        let modificationQuantite = document.querySelectorAll(".itemQuantity");
+
+        for (let k = 0; k < modificationQuantite.length; ++k){
+            modificationQuantite[k].addEventListener("change" , () => {
+
+                //Selection de l'element à modifier en fonction de son id ET sa couleur
+                let nouvelleQuantite = kanapInfos[k].Quantite;
+                let valeurModifie = modificationQuantite[k].valueAsNumber;
+
+                const resultFind = kanapInfos.find((element) => element.valeurModifie !== nouvelleQuantite);
+
+                resultFind.Quantite = valeurModifie;
+                kanapInfos[k].Quantite = resultFind.Quantite;
+
+                localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+
+                // refresh rapide
+                location.reload();
+            })
+        }
+    }
+    changerQuantite();
+
         let quantiteTotal = [];
 
         for (let y = 0; y < kanapInfos.length; ++y){
@@ -109,19 +133,17 @@ let section = document.getElementById("cart__items");
         let prixTotal = [];
 
         for (let x = 0; x < kanapInfos.length; x++){
-        let prixDansPanier = kanapInfos[x].Prix;
+        let prixDansPanier = parseInt(kanapInfos[x].Prix);
 
         prixTotal.push(prixDansPanier)
     }
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const prixTotalTableau = prixTotal.reduce(reducer,0);
+    const prixTotalTableau = prixTotal.reduce(reducer);
 
     let affichagePrixHTML = document.getElementById("totalPrice");
     affichagePrixHTML.innerHTML = prixTotalTableau;
-    }
-
-    let commande = document.getElementById("order");
+}
 
 function test(){
 
