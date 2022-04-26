@@ -1,13 +1,9 @@
-let params = new URLSearchParams(window.location.search);
-const id = params.get('id');
-const price = params.get('price');
-const url = 'http://localhost:3000/api/products/'+id+price;
-fetch(url)
+fetch('http://localhost:3000/api/products')
 .then(function(res){
     if(res.ok){
         return res.json();
     }
-})
+    })
 
 var kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
 
@@ -38,7 +34,7 @@ let section = document.getElementById("cart__items");
     color.innerHTML = kanapInfos[produit].Couleurs;
 
     let price = document.createElement("p");
-    price.innerHTML = ("Le prix en") +(' €');
+    price.innerHTML = kanapInfos[produit].Prix +(' €');
 
     let itemSettings = document.createElement("div");
     itemSettings.classList.add("cart__item__content__settings");
@@ -134,16 +130,16 @@ let section = document.getElementById("cart__items");
     let affichageQuantiteHTML = document.getElementById("totalQuantity");
     affichageQuantiteHTML.innerHTML = quantiteTotalTableau;
 
-        let prixTotal = [];
+    let prixTotal = [];
 
-        for (let x = 0; x < kanapInfos.length; ++x){
-        let prixDansPanier = parseInt(kanapInfos[x].price);
+    for (let x = 0; x < kanapInfos.length; ++x){
+    let prixDansPanier = kanapInfos[x].Prix;
 
-        prixTotal.push(prixDansPanier)
-    }
+    prixTotal.push(prixDansPanier)
+}
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const prixTotalTableau = prixTotal.reduce(reducer);
+    const prixTotalTableau = prixTotal * quantiteTotal;
 
     let affichagePrixHTML = document.getElementById("totalPrice");
     affichagePrixHTML.innerHTML = prixTotalTableau;
