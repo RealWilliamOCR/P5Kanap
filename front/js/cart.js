@@ -7,7 +7,7 @@ fetch('http://localhost:3000/api/products')
 
 var kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
 
-for (var produit in kanapInfos){
+for (let produit in kanapInfos){
 let section = document.getElementById("cart__items");
 
     let article = document.createElement("article");
@@ -79,10 +79,10 @@ let section = document.getElementById("cart__items");
     for (let s = 0; s < iconeSupprimer.length; s++) {
         iconeSupprimer[s].addEventListener("click", function(){
 
-        let produitSupprimer = kanapInfos[s].Nom;
+        let produitSupprimer = kanapInfos[s].IdCouleur;
 
         kanapInfos = kanapInfos.filter(
-        (element) => element.Nom !== produitSupprimer);
+        (element) => element.IdCouleur !== produitSupprimer);
 
         localStorage.setItem("Kanap",JSON.stringify(kanapInfos));
 
@@ -91,15 +91,14 @@ let section = document.getElementById("cart__items");
         })
     }
 
-    // Modification d'une quantité de produit
-    function changerQuantite() {
+function totalFinal(){
         let modificationQuantite = document.querySelectorAll(".itemQuantity");
 
         for (let k = 0; k < modificationQuantite.length; ++k){
             modificationQuantite[k].addEventListener("change" , () => {
 
                 //Selection de l'element à modifier en fonction de son id ET sa couleur
-                let nouvelleQuantite = kanapInfos[k].Quantite;
+                let nouvelleQuantite = kanapInfos[k].IdCouleur;
                 let valeurModifie = modificationQuantite[k].valueAsNumber;
 
                 const resultFind = kanapInfos.find((element) => element.valeurModifie !== nouvelleQuantite);
@@ -109,40 +108,37 @@ let section = document.getElementById("cart__items");
 
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
 
-                // refresh rapide
                 location.reload();
             })
         }
     }
-    changerQuantite();
 
-        let quantiteTotal = [];
+    // Récupération du total des quantités
+    let quantityElement = document.getElementsByClassName('itemQuantity');
+    let monTableau = quantityElement.length,
+    totalQuantity = 0;
 
-        for (let y = 0; y < kanapInfos.length; ++y){
-        let quantiteDansPanier = parseInt(kanapInfos[y].Quantite);
-
-        quantiteTotal.push(quantiteDansPanier)
+    for (var i = 0; i < monTableau; ++i) {
+        totalQuantity += quantityElement[i].valueAsNumber;
     }
 
-    const Reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const quantiteTotalTableau = quantiteTotal.reduce(Reducer);
+    let productTotalQuantity = document.getElementById('totalQuantity');
+    productTotalQuantity.innerHTML = totalQuantity;
 
-    let affichageQuantiteHTML = document.getElementById("totalQuantity");
-    affichageQuantiteHTML.innerHTML = quantiteTotalTableau;
+    // Récupération du prix total
+    prixTotal = 0;
 
-    let prixTotal = [];
+    for (var i = 0; i < monTableau; ++i) {
+        prixTotal += (quantityElement[i].valueAsNumber * kanapInfos[i].Prix);
+    }
 
-    for (let x = 0; x < kanapInfos.length; ++x){
-    let prixDansPanier = kanapInfos[x].Prix;
-
-    prixTotal.push(prixDansPanier)
-}
-
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const prixTotalTableau = prixTotal * quantiteTotal;
+    let productprixTotal = document.getElementById('prixTotal');
+    productprixTotal = prixTotal;
 
     let affichagePrixHTML = document.getElementById("totalPrice");
-    affichagePrixHTML.innerHTML = prixTotalTableau;
+        affichagePrixHTML.innerHTML = prixTotal;
+
+totalFinal();
 }
 
 function test(){
@@ -203,4 +199,4 @@ function test(){
     else{
         emailError.innerHTML = messageEmailError;
     }
-}
+};

@@ -2,45 +2,6 @@
 Je fetch l'url qu'on nous propose où se trouve les produits.
 */
 
-/*if(localStorage.localPanier != null){
-let varPanier = JSON.parse(localStorage.localPanier);
-}
-else {
-let varPanier = [];
-}
-
-var registeredKanap = [];
-localStorage.setItem("témoinNumber", 0);
-localStorage.setItem("témoinString", "toto");
-
-        if (localStorage.getItem("listeKanap") === null) {
-            console.log("cas null");
-            let nb = localStorage.getItem("témoinNumber");
-            let str = localStorage.getItem("témoinString");
-            console.log(nb);
-            console.log(str);
-        }
-        else{
-            registeredKanap = localStorage.getItem("listeKanap");
-            console.log("cas non null");
-            let nb = localStorage.getItem("témoinNumber");
-                        let str = localStorage.getItem("témoinString");
-                        console.log(nb);
-                        console.log(str);
-        }
-        localStorage.setItem("listeKanap", registeredKanap);
-
-        console.log("canapés enregistrés : ");
-        console.log(registeredKanap);
-
-        let testvalue = localStorage.getItem("listeKanap");
-        console.log(testvalue);
-        console.log("nb canapés sélectionnés : " + registeredKanap.length);
-        let nb = localStorage.getItem("témoinNumber");
-                    let str = localStorage.getItem("témoinString");
-                    console.log(nb);
-                    console.log(str);*/
-
 fetch('http://localhost:3000/api/products')
 .then(function(res){
     if(res.ok){
