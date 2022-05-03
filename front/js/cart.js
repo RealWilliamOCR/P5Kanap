@@ -103,13 +103,18 @@ function totalFinal(){
 
                 const resultFind = kanapInfos.find((element) => element.valeurModifie !== nouvelleQuantite);
 
-                resultFind.Quantite = valeurModifie;
-                kanapInfos[k].Quantite = resultFind.Quantite;
+                resultFind.IdCouleur = valeurModifie;
+                kanapInfos[k].IdCouleur = resultFind.IdCouleur;
 
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
 
                 location.reload();
             })
+            if (modificationQuantite !== 0){
+                Quantite = modificationQuantite * Quantite++
+            }else{
+                modificationQuantite = []
+            }
         }
     }
 
@@ -200,3 +205,11 @@ function test(){
         emailError.innerHTML = messageEmailError;
     }
 };
+   
+function goConfirmation(){
+    const idFinal = document.getElementById("orderId");
+    idFinal.innerText = localStorage.getItem("Id");
+    localStorage.clear();
+}
+
+goConfirmation();
