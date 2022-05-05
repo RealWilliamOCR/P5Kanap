@@ -92,31 +92,39 @@ let section = document.getElementById("cart__items");
     }
 
 function totalFinal(){
-        let modificationQuantite = document.querySelectorAll(".itemQuantity");
+let modificationQuantite = document.querySelectorAll(".itemQuantity");
 
         for (let k = 0; k < modificationQuantite.length; ++k){
             modificationQuantite[k].addEventListener("change" , () => {
 
                 //Selection de l'element à modifier en fonction de son id ET sa couleur
-                let nouvelleQuantite = kanapInfos[k].IdCouleur;
+                let nouvelleQuantite = kanapInfos[k].Quantite;
                 let valeurModifie = modificationQuantite[k].valueAsNumber;
 
                 const resultFind = kanapInfos.find((element) => element.valeurModifie !== nouvelleQuantite);
-
-                resultFind.IdCouleur = valeurModifie;
-                kanapInfos[k].IdCouleur = resultFind.IdCouleur;
+                resultFind.Quantite = valeurModifie;
+                kanapInfos[k].Quantite = resultFind.Quantite;
 
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
 
+                if(productQuantity.value > 1 && productQuantity.value <= 100){
+                   productQuantity.value--;
+                }else{
+                productQuantity.value = 1;
+                }
+
+                if(productQuantity.value >= 1 && productQuantity.value < 100){
+                   productQuantity.value++;
+                }else{
+                productQuantity.value = 1;
+                }
+
+                // refresh rapide
                 location.reload();
             })
-            if (modificationQuantite !== 0){
-                Quantite = modificationQuantite * Quantite++
-            }else{
-                modificationQuantite = []
-            }
         }
     }
+    totalFinal();
 
     // Récupération du total des quantités
     let quantityElement = document.getElementsByClassName('itemQuantity');
@@ -142,7 +150,6 @@ function totalFinal(){
 
     let affichagePrixHTML = document.getElementById("totalPrice");
         affichagePrixHTML.innerHTML = prixTotal;
-
 totalFinal();
 }
 
@@ -205,11 +212,19 @@ function test(){
         emailError.innerHTML = messageEmailError;
     }
 };
-   
-function goConfirmation(){
-    const idFinal = document.getElementById("orderId");
-    idFinal.innerText = localStorage.getItem("Id");
-    localStorage.clear();
-}
 
-goConfirmation();
+const PanierClientTermine = {
+    Prenom: "firstName",
+    Nom: "lastName",
+    Adresse: "address",
+    Ville: "city",
+    Email: "email",
+};
+
+const promise = fetch('http://localhost:3000/api/confirmation', {
+    method: "POST",
+    body: JSON.stringify(PanierClientTermine),
+    headers: {
+    "Content-Type": "application/json",
+    },
+});
