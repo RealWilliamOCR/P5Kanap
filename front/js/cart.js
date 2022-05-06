@@ -107,13 +107,13 @@ let modificationQuantite = document.querySelectorAll(".itemQuantity");
 
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
 
-                if(productQuantity.value > 1 && productQuantity.value <= 100){
+                if(productQuantity.value > 0 && productQuantity.value <= 100){
                    productQuantity.value--;
                 }else{
                 productQuantity.value = 1;
                 }
 
-                if(productQuantity.value >= 1 && productQuantity.value < 100){
+                if(productQuantity.value >= 0 && productQuantity.value < 100){
                    productQuantity.value++;
                 }else{
                 productQuantity.value = 1;
@@ -213,6 +213,14 @@ function test(){
     }
 };
 
+/*function confirmation(confirmPage){
+    let UrlConfirm = window.location.href;
+    let Index = UrlConfirm.lastIndexOf("/") + 1;
+    document.location = UrlConfirm.substring(0, Index) + confirmPage;
+}*/
+
+
+
 let btnFormulaire = document.getElementById("order");
 
 btnFormulaire.addEventListener("click", function(){
@@ -222,7 +230,7 @@ btnFormulaire.addEventListener("click", function(){
 
         let commandeFinal = {
             infosClient: {
-                firstName:firstName.value,
+                firstName: firstName.value,
                 lastName: lastName.value,
                 address: address.value,
                 city: city.value,
@@ -233,7 +241,16 @@ btnFormulaire.addEventListener("click", function(){
     fetch('http://localhost:3000/api/products/order', {
         method: "POST",
         body: JSON.stringify(commandeFinal),
-        headers: {"Content-Type": "application/json"}
+        headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        },
     })
-    .then(response => response.json())
+    .then((response) => response.json())
+    .then((value) => {
+        //localStorage.setItem("Order", value.orderId);
+        //document.location.href = "confirmation.html";
+        document.location.href = "confirmation.html?Id="+value.orderId;
+        //confirmation("confirmation.html?Id="+value.orderId);
+    })
 })
