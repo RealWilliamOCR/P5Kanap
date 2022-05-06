@@ -213,18 +213,27 @@ function test(){
     }
 };
 
-const PanierClientTermine = {
-    Prenom: "firstName",
-    Nom: "lastName",
-    Adresse: "address",
-    Ville: "city",
-    Email: "email",
-};
+let btnFormulaire = document.getElementById("order");
 
-const promise = fetch('http://localhost:3000/api/confirmation', {
-    method: "POST",
-    body: JSON.stringify(PanierClientTermine),
-    headers: {
-    "Content-Type": "application/json",
-    },
-});
+btnFormulaire.addEventListener("click", function(){
+        let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
+        let produitsCommandes = [];
+        produitsCommandes.push(kanapInfos);
+
+        let commandeFinal = {
+            infosClient: {
+                firstName:firstName.value,
+                lastName: lastName.value,
+                address: address.value,
+                city: city.value,
+                email: email.value,
+            },
+        products: produitsCommandes,
+    };
+    fetch('http://localhost:3000/api/products/order', {
+        method: "POST",
+        body: JSON.stringify(commandeFinal),
+        headers: {"Content-Type": "application/json"}
+    })
+    .then(response => response.json())
+})
