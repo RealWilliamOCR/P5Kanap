@@ -56,21 +56,30 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
             Image:("Image", products.imageUrl),
             ImageAlt:("ImageAlt", products.altTxt),
             Nom:("Nom", document.getElementById("title").innerHTML),
-            Prix:("Prix", products.price),
-            IdCouleur:(id) + " " + ("Couleurs", document.getElementById("colors").value),
-            QuantitePrix:("Quantite", document.getElementById("quantity").value) + " " + ("Prix", products.price)
+            Prix:("Prix", products.price)
         }
 
         let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
-            if (kanapInfos) {
+         //Si le panier comporte déjà au moins 1 article
+        if (kanapInfos) {
+            const resultFind = kanapInfos.find(
+                (el) => el.Id === id && el.Couleurs === document.getElementById("colors").value);
+                //Si le produit commandé est déjà dans le panier
+                if (resultFind) {
+                    let newQuantite =
+                    parseInt(kanapDetails.Quantite) + parseInt(resultFind.Quantite);
+                    resultFind.Quantite = newQuantite;
+                    localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+                //Si le produit commandé n'est pas dans le panier
+                } else {
+                    kanapInfos.push(kanapDetails);
+                    localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+                }
+            //Si le panier est vide
+            } else {
+                kanapInfos =[];
                 kanapInfos.push(kanapDetails);
-                localStorage.setItem("Kanap",JSON.stringify(kanapInfos));
-            }
-            else {
-                kanapInfos = [];
-                kanapInfos.push(kanapDetails);
-                localStorage.setItem("Kanap",JSON.stringify(kanapInfos));
-            }
-            console.log(kanapInfos);
+                localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+        }
     })
 })

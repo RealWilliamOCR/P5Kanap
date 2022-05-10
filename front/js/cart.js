@@ -75,24 +75,31 @@ let section = document.getElementById("cart__items");
     article.appendChild(itemDelete);
     itemDelete.appendChild(deleteAccept);
 
-    let iconeSupprimer = document.querySelectorAll(".itemDelete");
-    for (let s = 0; s < iconeSupprimer.length; s++) {
-        iconeSupprimer[s].addEventListener("click", function(){
-
-        let produitSupprimer = kanapInfos[s].IdCouleur;
-
-        kanapInfos = kanapInfos.filter(
-        (element) => element.IdCouleur !== produitSupprimer);
-
-        localStorage.setItem("Kanap",JSON.stringify(kanapInfos));
-
-        alert("Le canapé a bien été supprimé de votre panier !");
-        window.location.href = "cart.html";
-        })
+    function deleteProduct() {
+        let iconeSupprimer = document.querySelectorAll(".itemDelete");
+    
+        for (let k = 0; k < iconeSupprimer.length; k++){
+            iconeSupprimer[k].addEventListener("click" , (event) => {
+                event.preventDefault();
+    
+                //Selection de l'element à supprimer en fonction de son id ET sa couleur
+                let idDelete = kanapInfos[k].Id;
+                let colorDelete = kanapInfos[k].Couleurs;
+    
+                kanapInfos = kanapInfos.filter( el => el.Id !== idDelete || el.Couleurs !== colorDelete );
+                
+                localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+    
+                //Alerte produit supprimé et refresh
+                alert("Ce produit a bien été supprimé du panier");
+                location.reload();
+            })
+        }
     }
+    deleteProduct();
 
-function totalFinal(){
-let modificationQuantite = document.querySelectorAll(".itemQuantity");
+    function totalFinal(){
+        let modificationQuantite = document.querySelectorAll(".itemQuantity");
 
         for (let k = 0; k < modificationQuantite.length; ++k){
             modificationQuantite[k].addEventListener("change" , () => {
@@ -113,7 +120,7 @@ let modificationQuantite = document.querySelectorAll(".itemQuantity");
                 productQuantity.value = 1;
                 }
 
-                if(productQuantity.value >= 0 && productQuantity.value < 100){
+                if(productQuantity.value >= 0 || productQuantity.value < 100){
                    productQuantity.value++;
                 }else{
                 productQuantity.value = 1;
@@ -242,15 +249,15 @@ btnFormulaire.addEventListener("click", function(){
         method: "POST",
         body: JSON.stringify(commandeFinal),
         headers: {
-        "Content-Type": "application/json",
         "Accept": "application/json",
+        "Content-Type": "application/json"
         },
     })
     .then((response) => response.json())
-    .then((value) => {
+    .then((data) => {
         //localStorage.setItem("Order", value.orderId);
         //document.location.href = "confirmation.html";
-        document.location.href = "confirmation.html?Id="+value.orderId;
+        document.location.href = "confirmation.html?Id="+data.orderId;
         //confirmation("confirmation.html?Id="+value.orderId);
     })
 })
