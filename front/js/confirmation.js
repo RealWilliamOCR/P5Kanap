@@ -1,6 +1,7 @@
-let params = new URLSearchParams(window.location.search);
-const id = params.get('id');
-const url = 'http://localhost:3000/api/products/'+id;
-fetch(url)
+function main(){
+    const idNode = document.getElementById("orderId");
+    idNode.innerText = localStorage.getItem("orderId");
+    localStorage.clear();
+}
 
-alert ("Votre commande a bien été enregistré !");
+main();

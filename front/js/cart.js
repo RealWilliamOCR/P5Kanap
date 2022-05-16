@@ -8,7 +8,7 @@ fetch('http://localhost:3000/api/products')
 var kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
 
 for (let produit in kanapInfos){
-let section = document.getElementById("cart__items");
+    let section = document.getElementById("cart__items");
 
     let article = document.createElement("article");
     article.classList.add("cart__item");
@@ -46,6 +46,7 @@ let section = document.getElementById("cart__items");
     nomQte.innerHTML = ('Qté : ');
 
     let productQuantity = document.createElement("input");
+    itemSetQuantity.appendChild(productQuantity);
     productQuantity.value = kanapInfos[produit].Quantite;
     productQuantity.className = "itemQuantity";
     productQuantity.setAttribute("type", "number");
@@ -74,151 +75,143 @@ let section = document.getElementById("cart__items");
     itemSetQuantity.appendChild(productQuantity);
     article.appendChild(itemDelete);
     itemDelete.appendChild(deleteAccept);
+}
 
-    function deleteProduct() {
-        let iconeSupprimer = document.querySelectorAll(".itemDelete");
-    
-        for (let k = 0; k < iconeSupprimer.length; k++){
-            iconeSupprimer[k].addEventListener("click" , (event) => {
+    function supprimerProduit() {
+        let boutonSupprimer = document.querySelectorAll(".itemDelete");
+
+        for (let k = 0; k < boutonSupprimer.length; k++){
+            boutonSupprimer[k].addEventListener("click" , (event) => {
                 event.preventDefault();
-    
+
                 //Selection de l'element à supprimer en fonction de son id ET sa couleur
                 let idDelete = kanapInfos[k].Id;
                 let colorDelete = kanapInfos[k].Couleurs;
-    
+
                 kanapInfos = kanapInfos.filter( el => el.Id !== idDelete || el.Couleurs !== colorDelete );
-                
+            
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-    
+
                 //Alerte produit supprimé et refresh
                 alert("Ce produit a bien été supprimé du panier");
                 location.reload();
             })
         }
     }
-    deleteProduct();
+    supprimerProduit();
 
-    function totalFinal(){
-        let modificationQuantite = document.querySelectorAll(".itemQuantity");
-
-        for (let k = 0; k < modificationQuantite.length; ++k){
-            modificationQuantite[k].addEventListener("change" , () => {
-
+    function modifyQtt() {
+        let qttModif = document.querySelectorAll(".itemQuantity");
+    
+        for (let k = 0; k < qttModif.length; k++){
+            qttModif[k].addEventListener("change" , (event) => {
+                event.preventDefault();
+    
                 //Selection de l'element à modifier en fonction de son id ET sa couleur
-                let nouvelleQuantite = kanapInfos[k].Quantite;
-                let valeurModifie = modificationQuantite[k].valueAsNumber;
-
-                const resultFind = kanapInfos.find((element) => element.valeurModifie !== nouvelleQuantite);
-                resultFind.Quantite = valeurModifie;
+                let quantityModif = kanapInfos[k].Quantite;
+                let qttModifValue = qttModif[k].valueAsNumber;
+                
+                const resultFind = kanapInfos.find((el) => el.qttModifValue !== quantityModif);
+    
+                resultFind.Quantite = qttModifValue;
                 kanapInfos[k].Quantite = resultFind.Quantite;
-
+    
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-
-                if(productQuantity.value > 0 && productQuantity.value <= 100){
-                   productQuantity.value--;
-                }else{
-                productQuantity.value = 1;
-                }
-
-                if(productQuantity.value >= 0 || productQuantity.value < 100){
-                   productQuantity.value++;
-                }else{
-                productQuantity.value = 1;
-                }
-
+            
                 // refresh rapide
                 location.reload();
             })
         }
     }
-    totalFinal();
+    modifyQtt();
 
-    // Récupération du total des quantités
-    let quantityElement = document.getElementsByClassName('itemQuantity');
-    let monTableau = quantityElement.length,
-    totalQuantity = 0;
+    function totalQuantitePrix(){
+        // Récupération du total des quantités
+        let quantityElement = document.getElementsByClassName('itemQuantity');
+        let monTableau = quantityElement.length,
+        totalQuantity = 0;
 
-    for (var i = 0; i < monTableau; ++i) {
-        totalQuantity += quantityElement[i].valueAsNumber;
-    }
+        for (var i = 0; i < monTableau; ++i) {
+            totalQuantity += quantityElement[i].valueAsNumber;
+        }
 
-    let productTotalQuantity = document.getElementById('totalQuantity');
-    productTotalQuantity.innerHTML = totalQuantity;
+        let productTotalQuantity = document.getElementById('totalQuantity');
+        productTotalQuantity.innerHTML = totalQuantity;
 
-    // Récupération du prix total
-    prixTotal = 0;
+        // Récupération du prix total
+        prixTotal = 0;
 
-    for (var i = 0; i < monTableau; ++i) {
-        prixTotal += (quantityElement[i].valueAsNumber * kanapInfos[i].Prix);
-    }
+        for (var i = 0; i < monTableau; ++i) {
+            prixTotal += (quantityElement[i].valueAsNumber * kanapInfos[i].Prix);
+        }
 
-    let productprixTotal = document.getElementById('prixTotal');
-    productprixTotal = prixTotal;
+        let productprixTotal = document.getElementById('prixTotal');
+        productprixTotal = prixTotal;
 
-    let affichagePrixHTML = document.getElementById("totalPrice");
+        let affichagePrixHTML = document.getElementById("totalPrice");
         affichagePrixHTML.innerHTML = prixTotal;
-totalFinal();
-}
-
-function test(){
-
-    let prenomError = document.getElementById("firstNameErrorMsg");
-    let messagePrenomError = 'Le prénom est invalide';
-    let prenom = document.getElementById("firstName").value;
-    let regexPrenom = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
-
-       if (prenom.match(regexPrenom)) {
-            prenomError.innerHTML = "";
-       }
-        else{
-            prenomError.innerHTML = messagePrenomError;
-        }
-
-    let nomError = document.getElementById("lastNameErrorMsg");
-    let messageNomError = 'Le nom de famille est invalide';
-    let nom = document.getElementById("lastName").value;
-
-        if (nom.match(regexPrenom)) {
-            nomError.innerHTML = "";
-        }
-        else{
-             nomError.innerHTML = messageNomError;
-        }
-
-    let adressError = document.getElementById("addressErrorMsg");
-    let messageAdresseError = 'L‘adresse saisie est invalide';
-    let adresse = document.getElementById("address").value;
-
-        if (adresse.match(regexPrenom)) {
-            adressError.innerHTML = "";
-        }
-        else{
-            adressError.innerHTML = messageAdresseError;
-        }
-
-    let villeError = document.getElementById("cityErrorMsg");
-    let messageVilleError = 'La ville indiquée est invalide';
-    let ville = document.getElementById("city").value;
-
-        if (ville.match(regexPrenom)) {
-            messageVilleError.innerHTML = "";
-        }
-        else{
-            villeError.innerHTML = messageVilleError;
-        }
-
-    let emailError = document.getElementById("emailErrorMsg");
-    let messageEmailError = 'L‘email indiqué est invalide';
-    let email = document.getElementById("email").value;
-    let regexEmail = /(?=^.{5,20}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
-
-    if (email.match(regexEmail)) {
-        emailError.innerHTML = "";
     }
-    else{
-        emailError.innerHTML = messageEmailError;
-    }
-};
+    totalQuantitePrix();
+
+    function test(){
+
+        let prenomError = document.getElementById("firstNameErrorMsg");
+        let messagePrenomError = 'Le prénom est invalide';
+        let prenom = document.getElementById("firstName").value;
+        let regexPrenom = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
+
+        if (prenom.match(regexPrenom)) {
+                prenomError.innerHTML = "";
+        }
+            else{
+                prenomError.innerHTML = messagePrenomError;
+            }
+
+        let nomError = document.getElementById("lastNameErrorMsg");
+        let messageNomError = 'Le nom de famille est invalide';
+        let nom = document.getElementById("lastName").value;
+
+            if (nom.match(regexPrenom)) {
+                nomError.innerHTML = "";
+            }
+            else{
+                nomError.innerHTML = messageNomError;
+            }
+
+        let adressError = document.getElementById("addressErrorMsg");
+        let messageAdresseError = 'L‘adresse saisie est invalide';
+        let adresse = document.getElementById("address").value;
+
+            if (adresse.match(regexPrenom)) {
+                adressError.innerHTML = "";
+            }
+            else{
+                adressError.innerHTML = messageAdresseError;
+            }
+
+        let villeError = document.getElementById("cityErrorMsg");
+        let messageVilleError = 'La ville indiquée est invalide';
+        let ville = document.getElementById("city").value;
+
+            if (ville.match(regexPrenom)) {
+                messageVilleError.innerHTML = "";
+            }
+            else{
+                villeError.innerHTML = messageVilleError;
+            }
+
+        let emailError = document.getElementById("emailErrorMsg");
+        let messageEmailError = 'L‘email indiqué est invalide';
+        let email = document.getElementById("email").value;
+        let regexEmail = /(?=^.{5,20}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
+
+        if (email.match(regexEmail)) {
+            emailError.innerHTML = "";
+        }
+        else{
+            emailError.innerHTML = messageEmailError;
+        }
+    };
 
 /*function confirmation(confirmPage){
     let UrlConfirm = window.location.href;
@@ -227,37 +220,54 @@ function test(){
 }*/
 
 
+function postForm(){
+    const btn_commander = document.getElementById("order");
 
-let btnFormulaire = document.getElementById("order");
+    //Ecouter le panier
+    btn_commander.addEventListener("click", (event)=>{
+    
+        //Récupération des coordonnées du formulaire client
+        let firstName = document.getElementById('firstName');
+        let lastName = document.getElementById('lastName');
+        let adress = document.getElementById('address');
+        let city = document.getElementById('city');
+        let mail = document.getElementById('email');
 
-btnFormulaire.addEventListener("click", function(){
-        let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
-        let produitsCommandes = [];
-        produitsCommandes.push(kanapInfos);
+        //Construction d'un array depuis le local storage
+        let idProduits = [];
+        for (let i = 0; i<kanapInfos.length;i++) {
+            idProduits.push(kanapInfos[i].Id);
+        }
 
-        let commandeFinal = {
-            infosClient: {
+        const order = {
+            contact : {
                 firstName: firstName.value,
                 lastName: lastName.value,
-                address: address.value,
+                address: adress.value,
                 city: city.value,
-                email: email.value,
+                email: mail.value,
             },
-        products: produitsCommandes,
-    };
-    fetch('http://localhost:3000/api/products/order', {
-        method: "POST",
-        body: JSON.stringify(commandeFinal),
-        headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-        },
+            products: idProduits,
+        } 
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(order),
+            headers: {
+                'Accept': 'application/json', 
+                "Content-Type": "application/json" 
+            },
+        };
+
+        fetch("http://localhost:3000/api/products/order", options)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            localStorage.clear();
+            localStorage.setItem("orderId", data.orderId);
+
+            document.location.href = "confirmation.html";
+        })
     })
-    .then((response) => response.json())
-    .then((data) => {
-        //localStorage.setItem("Order", value.orderId);
-        //document.location.href = "confirmation.html";
-        document.location.href = "confirmation.html?Id="+data.orderId;
-        //confirmation("confirmation.html?Id="+value.orderId);
-    })
-})
+}
+postForm();
