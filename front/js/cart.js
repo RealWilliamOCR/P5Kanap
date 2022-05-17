@@ -1,3 +1,5 @@
+
+
 fetch('http://localhost:3000/api/products')
 .then(function(res){
     if(res.ok){
@@ -110,8 +112,10 @@ for (let produit in kanapInfos){
                 //Selection de l'element à modifier en fonction de son id ET sa couleur
                 let quantityModif = kanapInfos[k].Quantite;
                 let qttModifValue = qttModif[k].valueAsNumber;
+                let idModif = kanapInfos[k].Id;
                 
-                const resultFind = kanapInfos.find((el) => el.qttModifValue !== quantityModif);
+                //const resultFind = kanapInfos.find(el => el.qttModifValue !== quantityModif && el.Id !== idModif );
+                const resultFind = kanapInfos.find(el => el.Id == idModif );
     
                 resultFind.Quantite = qttModifValue;
                 kanapInfos[k].Quantite = resultFind.Quantite;
