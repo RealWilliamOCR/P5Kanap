@@ -1,4 +1,22 @@
+let kanapPrixImage = [];
 
+const fetchPrix = async () => {
+    await fetch ('http://localhost:3000/api/products')
+    .then ((res) => res.json())
+    .then ((promise) => {
+        kanapPrixImage = promise;
+    });
+};
+
+const fetchImg = async () => {
+    await fetchPrix();
+
+    document.getElementsByClassName("img").innerHTML ${kanapPrixImage.imageUrl};
+    document.getElementsByClassName("img").innerHTML ${kanapPrixImage.altTxt};
+    document.getElementsByClassName("p").innerHTML ${kanapPrixImage.price};
+};
+
+fetchImg();
 
 fetch('http://localhost:3000/api/products')
 .then(function(res){
