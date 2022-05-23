@@ -1,33 +1,13 @@
-let kanapPrixImage = [];
-
-const fetchPrix = async () => {
-    await fetch ('http://localhost:3000/api/products')
-    .then ((res) => res.json())
-    .then ((promise) => {
-        kanapPrixImage = promise;
-    });
-};
-
-const fetchImg = async () => {
-    await fetchPrix();
-
-    document.getElementsByClassName("img").innerHTML ${kanapPrixImage.imageUrl};
-    document.getElementsByClassName("img").innerHTML ${kanapPrixImage.altTxt};
-    document.getElementsByClassName("p").innerHTML ${kanapPrixImage.price};
-};
-
-fetchImg();
-
-fetch('http://localhost:3000/api/products')
+let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
+let productId = kanapInfos.Id;
+fetch("http://localhost:3000/api/products/"+productId)
 .then(function(res){
     if(res.ok){
         return res.json();
     }
     })
 
-var kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
-
-for (let produit in kanapInfos){
+for (let Kanap in kanapInfos){
     let section = document.getElementById("cart__items");
 
     let article = document.createElement("article");
@@ -37,8 +17,8 @@ for (let produit in kanapInfos){
     itemImg.classList.add("cart__item__img");
 
     let image = document.createElement("img");
-    image.src = kanapInfos[produit].Image;
-    image.alt = kanapInfos[produit].ImageAlt;
+    image.src = Kanap.imageUrl;
+    image.alt = Kanap.ImageAlt;
 
     let itemContent = document.createElement("div");
     itemContent.classList.add("cart__item__content");
@@ -48,13 +28,13 @@ for (let produit in kanapInfos){
 
     let h2 = document.createElement("h2");
     h2.classList.add("productName");
-    h2.innerHTML = kanapInfos[produit].Nom;
+    h2.innerHTML = kanapInfos[Kanap].Nom;
 
     let color = document.createElement("p");
-    color.innerHTML = kanapInfos[produit].Couleurs;
+    color.innerHTML = kanapInfos[Kanap].Couleurs;
 
     let price = document.createElement("p");
-    price.innerHTML = kanapInfos[produit].Prix +(' €');
+    price.innerHTML = Kanap.price +(' €');
 
     let itemSettings = document.createElement("div");
     itemSettings.classList.add("cart__item__content__settings");
@@ -67,7 +47,7 @@ for (let produit in kanapInfos){
 
     let productQuantity = document.createElement("input");
     itemSetQuantity.appendChild(productQuantity);
-    productQuantity.value = kanapInfos[produit].Quantite;
+    productQuantity.value = kanapInfos[Kanap].Quantite;
     productQuantity.className = "itemQuantity";
     productQuantity.setAttribute("type", "number");
     productQuantity.setAttribute("min", "1");
