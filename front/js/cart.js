@@ -18,7 +18,7 @@ for (let Kanap in kanapInfos){
 
     let image = document.createElement("img");
     image.src = Kanap.imageUrl;
-    image.alt = Kanap.ImageAlt;
+    image.alt = Kanap.altTxt;
 
     let itemContent = document.createElement("div");
     itemContent.classList.add("cart__item__content");
