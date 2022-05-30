@@ -1,25 +1,19 @@
-//let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
-const productId = kanapInfos.Id;
-//console.log(kanapInfos);
-fetch("http://localhost:3000/api/products/"+productId)
-.then(function(res){
-    if(res.ok){
-        return res.json();
-    }
-    })
+let kanapInfos = JSON.parse(localStorage.getItem("Kanap"))
+if (kanapInfos){
+  for (let Kanap of kanapInfos){
+    let productId = Kanap.Id;
+    let productColor = Kanap.Couleurs;
+    let productQuantity = Kanap.Quantite;
+  }
 
-    let kanapInfos = JSON.parse(localStorage.getItem("Kanap"))
-    if (kanapInfos){
-      for (let Kanap of kanapInfos)
-      {
-        let item =
-        {
-          Id : Kanap,
-          color : Kanap.color,
-          quantity : Kanap.quantity,
-        }
-        fetch("http://localhost:3000/api/products/" + item.id)
-
+    fetch("http://localhost:3000/api/products/${productId}")
+        .then(function(res){
+            if(res.ok){
+                return res.json();
+            }
+        })
+ }
+    for (let Kanap in kanapInfos){
     let section = document.getElementById("cart__items");
 
     let article = document.createElement("article");
@@ -40,7 +34,7 @@ fetch("http://localhost:3000/api/products/"+productId)
 
     let h2 = document.createElement("h2");
     h2.classList.add("productName");
-    h2.innerHTML = cart.name;
+    h2.innerHTML = Kanap.name;
 
     let color = document.createElement("p");
     color.innerHTML = kanapInfos[Kanap].Couleurs;
@@ -88,7 +82,6 @@ fetch("http://localhost:3000/api/products/"+productId)
     article.appendChild(itemDelete);
     itemDelete.appendChild(deleteAccept);
     }
-}
 
     function supprimerProduit() {
         let boutonSupprimer = document.querySelectorAll(".itemDelete");
@@ -102,7 +95,7 @@ fetch("http://localhost:3000/api/products/"+productId)
                 let colorDelete = kanapInfos[k].Couleurs;
 
                 kanapInfos = kanapInfos.filter( el => el.Id !== idDelete || el.Couleurs !== colorDelete );
-            
+
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
 
                 //Alerte produit supprimé et refresh
@@ -115,24 +108,24 @@ fetch("http://localhost:3000/api/products/"+productId)
 
     function modifyQtt() {
         let qttModif = document.querySelectorAll(".itemQuantity");
-    
+
         for (let k = 0; k < qttModif.length; k++){
             qttModif[k].addEventListener("change" , (event) => {
                 event.preventDefault();
-    
+
                 //Selection de l'element à modifier en fonction de son id ET sa couleur
                 let quantityModif = kanapInfos[k].Quantite;
                 let qttModifValue = qttModif[k].valueAsNumber;
                 let idModif = kanapInfos[k].Id;
-                
+
                 //const resultFind = kanapInfos.find(el => el.qttModifValue !== quantityModif && el.Id !== idModif );
                 const resultFind = kanapInfos.find(el => el.Id == idModif );
-    
+
                 resultFind.Quantite = qttModifValue;
                 kanapInfos[k].Quantite = resultFind.Quantite;
-    
+
                 localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-            
+
                 // refresh rapide
                 location.reload();
             })
@@ -240,7 +233,7 @@ function postForm(){
 
     //Ecouter le panier
     btn_commander.addEventListener("click", (event)=>{
-    
+
         //Récupération des coordonnées du formulaire client
         let firstName = document.getElementById('firstName');
         let lastName = document.getElementById('lastName');
@@ -263,14 +256,14 @@ function postForm(){
                 email: mail.value,
             },
             products: idProduits,
-        } 
+        }
 
         const options = {
             method: 'POST',
             body: JSON.stringify(order),
             headers: {
-                'Accept': 'application/json', 
-                "Content-Type": "application/json" 
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
             },
         };
 
