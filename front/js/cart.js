@@ -1,5 +1,6 @@
-let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
-let productId = kanapInfos.Id;
+//let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
+const productId = kanapInfos.Id;
+//console.log(kanapInfos);
 fetch("http://localhost:3000/api/products/"+productId)
 .then(function(res){
     if(res.ok){
@@ -7,7 +8,18 @@ fetch("http://localhost:3000/api/products/"+productId)
     }
     })
 
-for (let Kanap in kanapInfos){
+    let kanapInfos = JSON.parse(localStorage.getItem("Kanap"))
+    if (kanapInfos){
+      for (let Kanap of kanapInfos)
+      {
+        let item =
+        {
+          Id : Kanap,
+          color : Kanap.color,
+          quantity : Kanap.quantity,
+        }
+        fetch("http://localhost:3000/api/products/" + item.id)
+
     let section = document.getElementById("cart__items");
 
     let article = document.createElement("article");
@@ -28,7 +40,7 @@ for (let Kanap in kanapInfos){
 
     let h2 = document.createElement("h2");
     h2.classList.add("productName");
-    h2.innerHTML = kanapInfos[Kanap].Nom;
+    h2.innerHTML = cart.name;
 
     let color = document.createElement("p");
     color.innerHTML = kanapInfos[Kanap].Couleurs;
@@ -75,6 +87,7 @@ for (let Kanap in kanapInfos){
     itemSetQuantity.appendChild(productQuantity);
     article.appendChild(itemDelete);
     itemDelete.appendChild(deleteAccept);
+    }
 }
 
     function supprimerProduit() {

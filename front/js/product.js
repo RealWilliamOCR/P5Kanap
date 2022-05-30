@@ -52,8 +52,7 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
         let kanapDetails = {
             Id: id,
             Couleurs:("Couleurs", document.getElementById("colors").value),
-            Quantite:("Quantite", document.getElementById("quantity").value),
-            Nom:("Nom", document.getElementById("title").innerHTML)
+            Quantite:("Quantite", document.getElementById("quantity").value)
         }
 
         let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
