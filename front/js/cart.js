@@ -1,18 +1,36 @@
 let kanapInfos = JSON.parse(localStorage.getItem("Kanap"))
 if (kanapInfos){
-  for (let Kanap of kanapInfos){
-    let productId = Kanap.Id;
-    let productColor = Kanap.Couleurs;
-    let productQuantity = Kanap.Quantite;
-  }
+  const kanapInfos = [];
+  for (let Kanap of kanapInfos) {
+        let productId = Kanap.Id;
+        let productQuantity = Kanap.Quantite;
+        let productColors = Kanap.Couleurs;
+        let productPrice = data.price;
+        let productImage = data.imageUrl;
+        let productAltTxt = data.altTxt;
+        let productNom = data.name;
 
-    fetch("http://localhost:3000/api/products/${productId}")
-        .then(function(res){
-            if(res.ok){
+    fetch("http://localhost:3000/api/products/" + Kanap.Id)
+        .then(function (res) {
+            if (res.ok) {
                 return res.json();
             }
         })
- }
+
+        .then(data => {
+            const kanap = {
+                Id: productId,
+                Quantite: productQuantity,
+                Couleurs: productColors,
+                Prix: productPrice,
+                Image: productImage,
+                ImageAlt:productAltTxt,
+                Nom: productNom,
+            };
+            kanapInfos.push(kanap);
+        });
+  }
+}
     for (let Kanap in kanapInfos){
     let section = document.getElementById("cart__items");
 
