@@ -1,94 +1,101 @@
 let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
 
 if (kanapInfos){
-    for (let Kanap of kanapInfos)
-    {
-      let item =
-      {
-        Id : Kanap.id,
-        color : Kanap.color,
-        quantity : Kanap.quantity,
-      }
-//const productId = kanapInfos.Id;
+    for (let Kanap of kanapInfos) {
+        let item = {
+            Id : Kanap.Id,
+            color : Kanap.color,
+            quantity : Kanap.quantity,
+        }
 
-//console.log(kanapInfos);
-fetch("http://localhost:3000/api/products/"+item.Id)
-.then(function(res){
-    if(res.ok){
-        return res.json();
-    }
-    })
+        fetch("http://localhost:3000/api/products/" + item.Id)
+        .then(function(res){
+            if(res.ok){
+            return res.json();
+            }
+        })
 
-    .then(function(kanap){
+        .then(function (kanap){
 
-    let section = document.getElementById("cart__items");
+            let section = document.getElementById("cart__items");
 
-    let article = document.createElement("article");
-    article.classList.add("cart__item");
+            let article = document.createElement("article");
+                article.classList.add("cart__item");
 
-    let itemImg = document.createElement("div");
-    itemImg.classList.add("cart__item__img");
+            let itemImg = document.createElement("div");
+                itemImg.classList.add("cart__item__img");
 
-    let image = document.createElement("img");
-    image.src = kanap.imageUrl;
-    image.alt = kanap.altTxt;
+            let image = document.createElement("img");
+                image.src = kanap.imageUrl;
+                image.alt = kanap.altTxt;
 
-    let itemContent = document.createElement("div");
-    itemContent.classList.add("cart__item__content");
+            let itemContent = document.createElement("div");
+                itemContent.classList.add("cart__item__content");
 
-    let itemDesc = document.createElement("div");
-    itemDesc.classList.add("cart__item__content__description");
+            let itemDesc = document.createElement("div");
+                itemDesc.classList.add("cart__item__content__description");
 
-    let h2 = document.createElement("h2");
-    h2.classList.add("productName");
-    h2.innerHTML = kanap.name;
+            let h2 = document.createElement("h2");
+                h2.classList.add("productName");
+                h2.innerHTML = kanap.name;
 
-    let color = document.createElement("p");
-    color.innerHTML = item.color;
+            let color = document.createElement("p");
+                    color.innerHTML = item.color;
+                    console.log(color);
 
-    let price = document.createElement("p");
-    price.innerHTML = kanap.price +(' €');
+            let price = document.createElement("p");
+                price.innerHTML = kanap.price +(' €');
 
-    let itemSettings = document.createElement("div");
-    itemSettings.classList.add("cart__item__content__settings");
+            let itemSettings = document.createElement("div");
+                itemSettings.classList.add("cart__item__content__settings");
 
-    let itemSetQuantity = document.createElement("div");
-    itemSetQuantity.classList.add("cart__item__content__settings__quantity");
+            let itemSetQuantity = document.createElement("div");
+                itemSetQuantity.classList.add("cart__item__content__settings__quantity");
 
-    let nomQte = document.createElement("p");
-    nomQte.innerHTML = ('Qté : ');
+            let nomQte = document.createElement("p");
+                nomQte.innerHTML = ('Qté : ');
 
-    let productQuantity = document.createElement("input");
-    itemSetQuantity.appendChild(productQuantity);
-    productQuantity.value = item.quantity;
-    productQuantity.className = "itemQuantity";
-    productQuantity.setAttribute("type", "number");
-    productQuantity.setAttribute("min", "1");
-    productQuantity.setAttribute("max", "100");
-    productQuantity.setAttribute("name", "itemQuantity");
+            let productQuantity = document.createElement("input");
+                itemSetQuantity.appendChild(productQuantity);
+                productQuantity.value = item.quantity;
+                productQuantity.className = "itemQuantity";
+                productQuantity.setAttribute("type", "number");
+                productQuantity.setAttribute("min", "1");
+                productQuantity.setAttribute("max", "100");
+                productQuantity.setAttribute("name", "itemQuantity");
 
-    let itemDelete = document.createElement("div");
-    itemDelete.classList.add("cart__item__content__settings__delete");
+            let itemDelete = document.createElement("div");
+                itemDelete.classList.add("cart__item__content__settings__delete");
 
-    let deleteAccept = document.createElement("p");
-    deleteAccept.classList.add("itemDelete");
-    deleteAccept.innerHTML = ('Supprimer');
+            let deleteAccept = document.createElement("p");
+                deleteAccept.classList.add("itemDelete");
+                deleteAccept.innerHTML = ('Supprimer');
 
-    section.appendChild(article);
-    article.appendChild(itemImg);
-    article.appendChild(itemContent);
-    itemImg.appendChild(image);
-    itemContent.appendChild(itemDesc);
-    itemDesc.appendChild(h2);
-    itemDesc.appendChild(color);
-    itemDesc.appendChild(price);
-    article.appendChild(itemSettings);
-    itemSettings.appendChild(itemSetQuantity);
-    itemSetQuantity.appendChild(nomQte);
-    itemSetQuantity.appendChild(productQuantity);
-    article.appendChild(itemDelete);
-    itemDelete.appendChild(deleteAccept);
-})
+            section.appendChild(article);
+
+            article.appendChild(itemImg);
+            article.appendChild(itemContent);
+
+            itemImg.appendChild(image);
+
+            itemContent.appendChild(itemDesc);
+
+            itemDesc.appendChild(h2);
+            itemDesc.appendChild(color);
+            itemDesc.appendChild(price);
+
+            article.appendChild(itemSettings);
+
+            itemSettings.appendChild(itemSetQuantity);
+
+            itemSetQuantity.appendChild(nomQte);
+            itemSetQuantity.appendChild(productQuantity);
+
+            article.appendChild(itemDelete);
+
+            itemDelete.appendChild(deleteAccept);
+        }
+    )}
 
     function supprimerProduit() {
         let boutonSupprimer = document.querySelectorAll(".itemDelete");
@@ -98,7 +105,7 @@ fetch("http://localhost:3000/api/products/"+item.Id)
                 event.preventDefault();
 
                 //Selection de l'element à supprimer en fonction de son id ET sa couleur
-                let idDelete = kanapInfos[k].Id;
+                let idDelete = KanapInfos[k].id;
                 let colorDelete = kanapInfos[k].Couleurs;
 
                 kanapInfos = kanapInfos.filter( el => el.Id !== idDelete || el.Couleurs !== colorDelete );
@@ -121,7 +128,6 @@ fetch("http://localhost:3000/api/products/"+item.Id)
                 event.preventDefault();
     
                 //Selection de l'element à modifier en fonction de son id ET sa couleur
-                let quantityModif = kanapInfos[k].Quantite;
                 let qttModifValue = qttModif[k].valueAsNumber;
                 let idModif = kanapInfos[k].Id;
                 
@@ -157,7 +163,7 @@ fetch("http://localhost:3000/api/products/"+item.Id)
         prixTotal = 0;
 
         for (var i = 0; i < monTableau; ++i) {
-            prixTotal += (quantityElement[i].valueAsNumber * kanapInfos[i].Prix);
+            prixTotal += (quantityElement[i].valueAsNumber * kanapInfos[i].price);
         }
 
         let productprixTotal = document.getElementById('prixTotal');
@@ -167,8 +173,8 @@ fetch("http://localhost:3000/api/products/"+item.Id)
         affichagePrixHTML.innerHTML = prixTotal;
     }
     totalQuantitePrix();
-}}
-    /*function test(){
+
+    function test(){
 
         let prenomError = document.getElementById("firstNameErrorMsg");
         let messagePrenomError = 'Le prénom est invalide';
@@ -227,6 +233,7 @@ fetch("http://localhost:3000/api/products/"+item.Id)
             emailError.innerHTML = messageEmailError;
         }
     };
+    test();
 
 /*function confirmation(confirmPage){
     let UrlConfirm = window.location.href;
@@ -235,7 +242,7 @@ fetch("http://localhost:3000/api/products/"+item.Id)
 }*/
 
 
-/*function postForm(){
+function postForm(){
     const btn_commander = document.getElementById("order");
 
     //Ecouter le panier
@@ -285,4 +292,5 @@ fetch("http://localhost:3000/api/products/"+item.Id)
         })
     })
 }
-postForm();*/
+postForm();
+}
