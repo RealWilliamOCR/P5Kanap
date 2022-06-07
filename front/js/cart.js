@@ -4,8 +4,8 @@ if (kanapInfos){
     for (let Kanap of kanapInfos) {
         let item = {
             Id : Kanap.Id,
-            color : Kanap.color,
-            quantity : Kanap.quantity,
+            color : Kanap.Color,
+            quantity : Kanap.Quantity,
         }
 
         fetch("http://localhost:3000/api/products/" + item.Id)
@@ -41,7 +41,6 @@ if (kanapInfos){
 
             let color = document.createElement("p");
                     color.innerHTML = item.color;
-                    console.log(color);
 
             let price = document.createElement("p");
                 price.innerHTML = kanap.price +(' €');
@@ -94,85 +93,85 @@ if (kanapInfos){
             article.appendChild(itemDelete);
 
             itemDelete.appendChild(deleteAccept);
-        }
-    )}
+        })    
 
-    function supprimerProduit() {
-        let boutonSupprimer = document.querySelectorAll(".itemDelete");
+        function supprimerProduit() {
+            let boutonSupprimer = document.querySelectorAll(".itemDelete");
 
-        for (let k = 0; k < boutonSupprimer.length; k++){
-            boutonSupprimer[k].addEventListener("click" , (event) => {
-                event.preventDefault();
+            for (let k = 0; k < boutonSupprimer.length; k++){
+                boutonSupprimer[k].addEventListener("click" , (event) => {
+                    event.preventDefault();
 
-                //Selection de l'element à supprimer en fonction de son id ET sa couleur
-                let idDelete = KanapInfos[k].id;
-                let colorDelete = kanapInfos[k].Couleurs;
+                    //Selection de l'element à supprimer en fonction de son id ET sa couleur
+                    let idDelete = kanapInfos[k].Id;
+                    let colorDelete = kanapInfos[k].Color;
 
-                kanapInfos = kanapInfos.filter( el => el.Id !== idDelete || el.Couleurs !== colorDelete );
-            
-                localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-
-                //Alerte produit supprimé et refresh
-                alert("Ce produit a bien été supprimé du panier");
-                location.reload();
-            })
-        }
-    }
-    supprimerProduit();
-
-    function modifyQtt() {
-        let qttModif = document.querySelectorAll(".itemQuantity");
-    
-        for (let k = 0; k < qttModif.length; k++){
-            qttModif[k].addEventListener("change" , (event) => {
-                event.preventDefault();
-    
-                //Selection de l'element à modifier en fonction de son id ET sa couleur
-                let qttModifValue = qttModif[k].valueAsNumber;
-                let idModif = kanapInfos[k].Id;
+                    kanapInfos = kanapInfos.filter( el => el.Id !== idDelete || el.Color !== colorDelete );
                 
-                //const resultFind = kanapInfos.find(el => el.qttModifValue !== quantityModif && el.Id !== idModif );
-                const resultFind = kanapInfos.find(el => el.Id == idModif );
-    
-                resultFind.Quantite = qttModifValue;
-                kanapInfos[k].Quantite = resultFind.Quantite;
-    
-                localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-            
-                // refresh rapide
-                location.reload();
-            })
+                    localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+
+                    //Alerte produit supprimé et refresh
+                    alert("Ce produit a bien été supprimé du panier");
+                    location.reload();
+                })
+            }
         }
+        supprimerProduit();
+
+        function modifyQtt() {
+            let qttModif = document.querySelectorAll(".itemQuantity");
+        
+            for (let k = 0; k < qttModif.length; k++){
+                qttModif[k].addEventListener("change" , (event) => {
+                    event.preventDefault();
+        
+                    //Selection de l'element à modifier en fonction de son id ET sa couleur
+                    let qttModifValue = qttModif[k].valueAsNumber;
+                    let idModif = kanapInfos[k].Id;
+                    
+                    const resultFind = kanapInfos.find(el => el.Id == idModif );
+        
+                    resultFind.quantity = qttModifValue;
+                    kanapInfos[k].Quantity = resultFind.quantity;
+        
+                    localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+                
+                    // refresh rapide
+                    location.reload();
+                })
+            }
+        }
+        modifyQtt();
+
+        function totalQuantitePrix(){
+            // Récupération du total des quantités
+            let quantityElement = document.getElementsByClassName('itemQuantity');
+            let monTableau = quantityElement.length,
+            totalQuantity = 0;
+
+            for (var i = 0; i < monTableau; ++i) {
+                totalQuantity += quantityElement[i].valueAsNumber;
+            }
+
+            let productTotalQuantity = document.getElementById('totalQuantity');
+            productTotalQuantity.innerHTML = totalQuantity;
+
+            // Récupération du prix total
+            prixTotal = 0;
+
+            for (var i = 0; i < monTableau; ++i) {
+                prixTotal += (quantityElement[i].valueAsNumber * kanap.price);
+            }
+
+            let productprixTotal = document.getElementById('prixTotal');
+            productprixTotal = prixTotal;
+
+            let affichagePrixHTML = document.getElementById("totalPrice");
+            affichagePrixHTML.innerHTML = prixTotal;
+        }
+        totalQuantitePrix();
     }
-    modifyQtt();
-
-    function totalQuantitePrix(){
-        // Récupération du total des quantités
-        let quantityElement = document.getElementsByClassName('itemQuantity');
-        let monTableau = quantityElement.length,
-        totalQuantity = 0;
-
-        for (var i = 0; i < monTableau; ++i) {
-            totalQuantity += quantityElement[i].valueAsNumber;
-        }
-
-        let productTotalQuantity = document.getElementById('totalQuantity');
-        productTotalQuantity.innerHTML = totalQuantity;
-
-        // Récupération du prix total
-        prixTotal = 0;
-
-        for (var i = 0; i < monTableau; ++i) {
-            prixTotal += (quantityElement[i].valueAsNumber * kanapInfos[i].price);
-        }
-
-        let productprixTotal = document.getElementById('prixTotal');
-        productprixTotal = prixTotal;
-
-        let affichagePrixHTML = document.getElementById("totalPrice");
-        affichagePrixHTML.innerHTML = prixTotal;
-    }
-    totalQuantitePrix();
+}
 
     function test(){
 
@@ -232,15 +231,8 @@ if (kanapInfos){
         else{
             emailError.innerHTML = messageEmailError;
         }
-    };
     test();
-
-/*function confirmation(confirmPage){
-    let UrlConfirm = window.location.href;
-    let Index = UrlConfirm.lastIndexOf("/") + 1;
-    document.location = UrlConfirm.substring(0, Index) + confirmPage;
-}*/
-
+    }
 
 function postForm(){
     const btn_commander = document.getElementById("order");
@@ -293,4 +285,3 @@ function postForm(){
     })
 }
 postForm();
-}

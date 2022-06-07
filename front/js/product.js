@@ -51,20 +51,20 @@ Pour les autres, je vais chercher les informations dans le Product.js comme pour
 
         let kanapDetails = {
             Id: id,
-            Couleurs:("Couleurs", document.getElementById("colors").value),
-            Quantite:("Quantite", document.getElementById("quantity").value)
+            Color:("Color", document.getElementById("colors").value),
+            Quantity:("Quantity", document.getElementById("quantity").value)
         }
 
         let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
          //Si le panier comporte déjà au moins 1 article
         if (kanapInfos) {
             const resultFind = kanapInfos.find(
-                (el) => el.Id === id && el.Couleurs === document.getElementById("colors").value);
+                (el) => el.Id === id && el.Color === document.getElementById("colors").value);
                 //Si le produit commandé est déjà dans le panier
                 if (resultFind) {
                     let newQuantite =
-                    parseInt(kanapDetails.Quantite) + parseInt(resultFind.Quantite);
-                    resultFind.Quantite = newQuantite;
+                    parseInt(kanapDetails.Quantity) + parseInt(resultFind.Quantity);
+                    resultFind.Quantity = newQuantite;
                     localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
                 //Si le produit commandé n'est pas dans le panier
                 } else {
