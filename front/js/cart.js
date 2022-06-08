@@ -92,8 +92,7 @@ if (kanapInfos){
 
             article.appendChild(itemDelete);
 
-            itemDelete.appendChild(deleteAccept);
-        })    
+            itemDelete.appendChild(deleteAccept);  
 
         function supprimerProduit() {
             let boutonSupprimer = document.querySelectorAll(".itemDelete");
@@ -170,7 +169,7 @@ if (kanapInfos){
             affichagePrixHTML.innerHTML = prixTotal;
         }
         totalQuantitePrix();
-    }
+    })}
 }
 
     function test(){
