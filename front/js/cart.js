@@ -56,12 +56,12 @@ if (kanapInfos){
 
             let productQuantity = document.createElement("input");
                 itemSetQuantity.appendChild(productQuantity);
-                productQuantity.value = item.quantity;
                 productQuantity.className = "itemQuantity";
                 productQuantity.setAttribute("type", "number");
                 productQuantity.setAttribute("min", "1");
                 productQuantity.setAttribute("max", "100");
                 productQuantity.setAttribute("name", "itemQuantity");
+                productQuantity.setAttribute("value", item.quantity);
 
             let itemDelete = document.createElement("div");
                 itemDelete.classList.add("cart__item__content__settings__delete");
@@ -95,25 +95,45 @@ if (kanapInfos){
             itemDelete.appendChild(deleteAccept);  
 
         //function supprimerProduit() {
-            let boutonSupprimer = document.querySelectorAll(".itemDelete");
+            //let boutonSupprimer = document.getElementsByClassName("itemDelete");
 
-            for (let k = 0; k < boutonSupprimer.length; k++){
-                boutonSupprimer[k].addEventListener("click" , (event) => {
+            //for (let k = 0; k < boutonSupprimer.length; k++){
+                deleteAccept.addEventListener("click" , (event) => {
                     event.preventDefault();
 
                     //Selection de l'element à supprimer en fonction de son id ET sa couleur
-                    let idDelete = item[k].Id;
-                    let colorDelete = item[k].Color;
+                    let idDelete = item.Id;
+                    let colorDelete = item.color;
 
-                    kanapInfos = event.target( el => el.Id !== idDelete || el.Color !== colorDelete );
+                    Cart = kanapInfos.filter( el => el.Id !== idDelete || el.Color !== colorDelete );
+                    event.target.closest(".cart__item").remove();
                 
-                    localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
+                    localStorage.setItem("Kanap", JSON.stringify(Cart));
 
                     //Alerte produit supprimé et refresh
                     alert("Ce produit a bien été supprimé du panier");
                     location.reload();
                 })
-            }
-        //}
+
+                productQuantity.addEventListener("change" , (e) => {
+                    e.preventDefault();
+        
+                    //Selection de l'element à modifier en fonction de son id ET sa couleur
+                    let qttModifValue = Number(productQuantity.value);
+                    let idModif = item.Id;
+                    let colorModif = item.color;
+                    
+                    Cart = kanapInfos.find((el) => el.Id === idModif ) && ((el) => el.Color === colorModif);
+                    if(Cart){
+                        Cart.quantity = qttModifValue;
+                        localStorage.setItem("Kanap", JSON.stringify(Cart));
+                    } else {
+                        Cart.push(Kanap);
+                        localStorage.setItem("Kanap", JSON.stringify(Cart));
+                    }
+                
+                    // refresh rapide
+                    //location.reload();
+                })
     })}
 }
