@@ -97,19 +97,23 @@ if (kanapInfos){
         //function supprimerProduit() {
             let boutonSupprimer = document.querySelectorAll(".itemDelete");
 
-                boutonSupprimer.addEventListener("click", function() {
+            for (let k = 0; k < boutonSupprimer.length; k++){
+                boutonSupprimer[k].addEventListener("click" , (event) => {
+                    event.preventDefault();
 
-                    let idDelete = item.Id;
-                    let colorDelete = item.color;
+                    //Selection de l'element à supprimer en fonction de son id ET sa couleur
+                    let idDelete = item[k].Id;
+                    let colorDelete = item[k].Color;
 
-                    kanapInfos = kanapInfos.filter( el => el.Id !== idDelete || el.color !== colorDelete);
-
+                    kanapInfos = event.target( el => el.Id !== idDelete || el.Color !== colorDelete );
+                
                     localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
 
-                    alert("Ce prdouit a bien été supprimé du panier");
+                    //Alerte produit supprimé et refresh
+                    alert("Ce produit a bien été supprimé du panier");
                     location.reload();
                 })
-        })
-    }
+            }
+        //}
+    })}
 }
-        //supprimerProduit();
