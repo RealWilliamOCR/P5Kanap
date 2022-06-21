@@ -163,57 +163,97 @@ if (kanapInfos) {
     }
 }
 
-let prenomError = document.getElementById("firstNameErrorMsg");
-let messagePrenomError = 'Le prénom est invalide';
-let prenom = document.getElementById("firstName").value;
-let regexPrenom = /^([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*){2}$/;
 
-if (prenom.match(regexPrenom)) {
-    prenomError.innerHTML = "";
-} else {
-    prenomError.innerHTML = messagePrenomError;
-}
+//LES REGEX//
+let regexPrenom = /^[a-zA-Z\-\‘]+$/;
+let regexAdress = /^[a-zA-Z0-9\s,‘-]*$/;
+let regexEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+
+
+//LES MESSAGES D'ERREURS//
+let messagePrenomError = 'Le prénom est invalide';
+let messageNomError = 'Le nom de famille est invalide';
+let messageAdresseError = 'L‘adresse saisie est invalide';
+let messageVilleError = 'La ville indiquée est invalide';
+let messageEmailError = 'L‘email indiqué est invalide';
+
+let regexFormulaire = document.querySelector(".cart__order__form");
+
+var validFirstName = false;
+var validLastName = false;
+var validAddress = false;
+var validCity = false;
+var validMail = false;
+
+let prenomError = document.getElementById("firstNameErrorMsg");
+let prenom = document.getElementById("firstName").value;
+
+regexFormulaire.firstName.addEventListener("input", function() {
+    let firstNameValidator = regexPrenom.test(this.value);
+    if (firstNameValidator) {
+        validFirstName = true;
+        prenomError.innerHTML = "";
+    } else {
+        validFirstName = false;
+        prenomError.innerHTML = messagePrenomError;
+    }
+})
 
 let nomError = document.getElementById("lastNameErrorMsg");
-let messageNomError = 'Le nom de famille est invalide';
 let nom = document.getElementById("lastName").value;
 
-if (nom.match(regexPrenom)) {
-    nomError.innerHTML = "";
-} else {
-    nomError.innerHTML = messageNomError;
-}
+regexFormulaire.lastName.addEventListener("input", function() {
+    let lastNameValidator = regexPrenom.test(this.value);
+    if (lastNameValidator) {
+        validLastName = true;
+        nomError.innerHTML = "";
+    } else {
+        validlastName = false;
+        nomError.innerHTML = messageNomError;
+    }
+})
 
 let adressError = document.getElementById("addressErrorMsg");
-let messageAdresseError = 'L‘adresse saisie est invalide';
 let adresse = document.getElementById("address").value;
 
-if (adresse.match(regexPrenom)) {
-    adressError.innerHTML = "";
-} else {
-    adressError.innerHTML = messageAdresseError;
-}
+regexFormulaire.address.addEventListener("input", function() {
+    let adressValidator = regexAdress.test(this.value);
+    if (adressValidator) {
+        validAdress = true;
+        adressError.innerHTML = "";
+    } else {
+        validAdress = false;
+        adressError.innerHTML = messageAdresseError;
+    }
+})
 
 let villeError = document.getElementById("cityErrorMsg");
-let messageVilleError = 'La ville indiquée est invalide';
 let ville = document.getElementById("city").value;
 
-if (ville.match(regexPrenom)) {
-    messageVilleError.innerHTML = "";
-} else {
-    villeError.innerHTML = messageVilleError;
-}
+regexFormulaire.city.addEventListener("input", function() {
+    let villeValidator = regexPrenom.test(this.value);
+    if (villeValidator) {
+        validVille = true;
+        villeError.innerHTML = "";
+    } else {
+        validVille = false;
+        villeError.innerHTML = messageVilleError;
+    }
+})
 
 let emailError = document.getElementById("emailErrorMsg");
-let messageEmailError = 'L‘email indiqué est invalide';
 let email = document.getElementById("email").value;
-let regexEmail = /(?=^.{5,20}$)^([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3})$/;
 
-if (email.match(regexEmail)) {
-    emailError.innerHTML = "";
-} else {
-    emailError.innerHTML = messageEmailError;
-}
+regexFormulaire.email.addEventListener("input", function() {
+    let emailValidator = regexEmail.test(this.value);
+    if (emailValidator) {
+        validEmailName = true;
+        emailError.innerHTML = "";
+    } else {
+        validEmail = false;
+        emailError.innerHTML = messageEmailError;
+    }
+})
 
 //function postForm() {
 const btn_commander = document.getElementById("order");
