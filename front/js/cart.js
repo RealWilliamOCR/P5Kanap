@@ -138,7 +138,7 @@ if (kanapInfos) {
                 let monTableau = quantityElement.length,
                     totalQuantity = 0;
 
-                for (var i = 0; i < monTableau; ++i) {
+                for (let i = 0; i < monTableau; ++i) {
                     totalQuantity += quantityElement[i].valueAsNumber;
                 }
 
@@ -146,9 +146,9 @@ if (kanapInfos) {
                 productTotalQuantity.innerHTML = totalQuantity;
 
                 // Récupération du prix total
-                prixTotal = 0;
+                let prixTotal = 0;
 
-                for (var i = 0; i < monTableau; ++i) {
+                for (let i = 0; i < monTableau; ++i) {
                     prixTotal += (quantityElement[i].valueAsNumber * kanap.price);
                 }
 
@@ -179,11 +179,11 @@ let messageEmailError = 'L‘email indiqué est invalide';
 
 let regexFormulaire = document.querySelector(".cart__order__form");
 
-var validFirstName = false;
-var validLastName = false;
-var validAddress = false;
-var validCity = false;
-var validMail = false;
+let validFirstName = false;
+let validLastName = false;
+let validAddress = false;
+let validCity = false;
+let validMail = false;
 
 let prenomError = document.getElementById("firstNameErrorMsg");
 let prenom = document.getElementById("firstName").value;
@@ -253,56 +253,59 @@ regexFormulaire.email.addEventListener("input", function() {
         validEmail = false;
         emailError.innerHTML = messageEmailError;
     }
-})
+});
 
-//function postForm() {
 const btn_commander = document.getElementById("order");
 
 //Ecouter le panier
-btn_commander.addEventListener("click", () => {
+btn_commander.addEventListener("click", (ev) => {
+    ev.preventDefault();
 
-        //Récupération des coordonnées du formulaire client
-        let firstName = document.getElementById('firstName');
-        let lastName = document.getElementById('lastName');
-        let adress = document.getElementById('address');
-        let city = document.getElementById('city');
-        let mail = document.getElementById('email');
+    //Construction d'un array depuis le local storage
+    let idProduits = [];
+    for (Kanap of kanapInfos) {
+        idProduits.push(Kanap.Id);
+    }
 
-        //Construction d'un array depuis le local storage
-        /*let idProduits = [];
-        for (let i = 0; i < kanapInfos.length; i++) {
-            idProduits.push(kanapInfos[i].Id);
-        }*/
+    //Récupération des coordonnées du formulaire client
+    let firstName = document.getElementById('firstName').value;
+    let lastName = document.getElementById('lastName').value;
+    let adress = document.getElementById('address').value;
+    let city = document.getElementById('city').value;
+    let mail = document.getElementById('email').value;
 
-        const order = {
-            contact: {
-                firstName: firstName,
-                lastName: lastName,
-                address: adress,
-                city: city,
-                email: mail,
-            },
-            products: kanapInfos
-        }
+    const order = {
+        contact: {
+            firstName: firstName,
+            lastName: lastName,
+            address: adress,
+            city: city,
+            email: mail,
+        },
+        products: idProduits,
+    };
+    console.log(order);
 
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(order),
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
-            },
-        };
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(order),
+        headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+        },
+    };
 
-        fetch("http://localhost:3000/api/products/order", options)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                localStorage.clear();
-                localStorage.setItem("orderId", data.orderId);
+    fetch("http://localhost:3000/api/products/order", options)
+        .then(function(res) {
+            if (res.ok) {
+                return res.json();
+            }
+        })
+        .then(function(data) {
+            console.log(data);
+            //localStorage.clear();
+            //localStorage.setItem("orderId", data.orderId);
 
-                document.location.href = "confirmation.html";
-            })
-    })
-    //}
-    //postForm();
+            window.location.href = 'confirmation.html?orderId=' + data.orderId;
+        })
+})

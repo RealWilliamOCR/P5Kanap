@@ -1,7 +1,10 @@
-function main(){
+let orderId = new url(window.location.href).searchParams;
+let Id = orderId.get("orderId");
+
+function main() {
     const idNode = document.getElementById("orderId");
-    idNode.innerText = localStorage.getItem("orderId");
-    localStorage.clear();
+    idNode.innerText = Id;
+    //localStorage.clear();
 }
 
 main();
